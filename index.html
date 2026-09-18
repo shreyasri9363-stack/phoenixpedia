@@ -1,0 +1,2019 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>PhoenixPedia — Public Profile Encyclopedia</title>
+<link rel="icon" type="image/png" href="plogo.png">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,300;9..144,450;9..144,560;9..144,650&family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+<style>
+:root{
+  --paper:#FAF6EC;
+  --paper-deep:#F3EDDF;
+  --ink:#201D17;
+  --ink-soft:#635C4C;
+  --ink-faint:#9A927D;
+  --line:#E4DBC5;
+  --line-strong:#D2C7A9;
+  --card:#FFFEFA;
+  --ember:#BE7F27;
+  --ember-deep:#8F5D16;
+  --ember-soft:#F3E1BE;
+  --pine:#20493F;
+  --pine-soft:#DCE9E3;
+  --azure:#2B5A88;
+  --azure-soft:#DCE7F1;
+  --gold:#A6791C;
+  --gold-soft:#F0E0B0;
+  --dusk:#17150F;
+  --dusk-card:#211E17;
+  --radius-s:6px;
+  --radius-m:12px;
+  --radius-l:20px;
+  --shadow-card:0 1px 2px rgba(32,29,23,.06), 0 10px 24px -14px rgba(32,29,23,.18);
+  --shadow-pop:0 20px 60px -20px rgba(32,29,23,.35);
+  --maxw:1180px;
+}
+*{box-sizing:border-box;}
+html{scroll-behavior:smooth;}
+body{
+  margin:0;
+  background:var(--paper);
+  color:var(--ink);
+  font-family:'Inter',system-ui,sans-serif;
+  font-size:16px;
+  line-height:1.55;
+  -webkit-font-smoothing:antialiased;
+}
+h1,h2,h3,h4{
+  font-family:'Fraunces',serif;
+  font-weight:560;
+  letter-spacing:-.01em;
+  margin:0 0 .4em;
+  color:var(--ink);
+}
+p{margin:0 0 1em;color:var(--ink-soft);}
+a{color:inherit;text-decoration:none;}
+img{max-width:100%;display:block;}
+button{font-family:inherit;cursor:pointer;}
+:focus-visible{outline:2px solid var(--ember-deep);outline-offset:2px;}
+.container{max-width:var(--maxw);margin:0 auto;padding:0 28px;}
+@media(max-width:720px){.container{padding:0 18px;}}
+
+/* ---------- NAV ---------- */
+.nav{
+  position:sticky;top:0;z-index:50;
+  background:rgba(250,246,236,.86);
+  backdrop-filter:blur(10px);
+  border-bottom:1px solid var(--line);
+}
+.nav-inner{display:flex;align-items:center;justify-content:space-between;height:72px;}
+.logo{display:flex;align-items:center;gap:10px;font-family:'Fraunces',serif;font-size:22px;font-weight:650;}
+.logo-mark{width:34px;height:34px;flex:none;border-radius:50%}
+.nav-links{display:flex;align-items:center;gap:30px;}
+.nav-links a{font-size:14.5px;color:var(--ink-soft);font-weight:500;padding:6px 0;border-bottom:2px solid transparent;transition:color .15s,border-color .15s;}
+.nav-links a:hover,.nav-links a.active{color:var(--ink);border-color:var(--ember);}
+.nav-actions{display:flex;align-items:center;gap:12px;}
+.nav-burger{display:none;background:none;border:1px solid var(--line-strong);border-radius:var(--radius-s);width:40px;height:40px;align-items:center;justify-content:center;}
+@media(max-width:860px){
+  .nav-links{position:fixed;top:72px;left:0;right:0;background:var(--paper);flex-direction:column;align-items:stretch;gap:0;padding:8px 18px 18px;border-bottom:1px solid var(--line);transform:translateY(-8px);opacity:0;pointer-events:none;transition:.18s;}
+  .nav-links.open{transform:translateY(0);opacity:1;pointer-events:auto;}
+  .nav-links a{padding:12px 0;border-bottom:1px solid var(--line);}
+  .nav-burger{display:flex;}
+  .nav-actions .btn{display:none;}
+  .nav-actions{gap:8px;}
+}
+
+/* ---------- BUTTONS ---------- */
+.btn{
+  display:inline-flex;align-items:center;justify-content:center;gap:8px;
+  padding:12px 22px;border-radius:999px;border:1px solid transparent;
+  font-size:14.5px;font-weight:600;line-height:1;
+  transition:transform .12s ease,box-shadow .12s ease,background .15s,border-color .15s,color .15s;
+  white-space:nowrap;
+}
+.btn:active{transform:scale(.97);}
+.btn-primary{background:linear-gradient(180deg,#CE9440,var(--ember-deep));color:#fff;box-shadow:0 8px 18px -8px rgba(143,93,22,.55);}
+.btn-primary:hover{box-shadow:0 12px 22px -8px rgba(143,93,22,.65);}
+.btn-dark{background:var(--ink);color:#fff;}
+.btn-dark:hover{background:#3a352a;}
+.btn-outline{background:transparent;border-color:var(--line-strong);color:var(--ink);}
+.btn-outline:hover{border-color:var(--ink);}
+.btn-ghost{background:transparent;color:var(--ink-soft);}
+.btn-ghost:hover{color:var(--ink);}
+.btn-sm{padding:8px 16px;font-size:13.5px;}
+.btn-block{width:100%;}
+.btn-danger{background:transparent;border-color:#D9BBB2;color:#9A3B24;}
+.btn-danger:hover{background:#FBEDE8;}
+.btn[disabled]{opacity:.5;pointer-events:none;}
+
+/* ---------- FORMS ---------- */
+.field{margin-bottom:18px;}
+.field label{display:block;font-size:13px;font-weight:600;color:var(--ink);margin-bottom:7px;}
+.field .hint{font-size:12.5px;color:var(--ink-faint);margin-top:5px;}
+.input,.textarea,select.input{
+  width:100%;padding:12px 14px;border:1px solid var(--line-strong);border-radius:var(--radius-s);
+  background:#fff;font-family:inherit;font-size:14.5px;color:var(--ink);
+}
+.input:focus,.textarea:focus{border-color:var(--ember-deep);}
+.textarea{resize:vertical;min-height:90px;}
+.two-col{display:grid;grid-template-columns:1fr 1fr;gap:16px;}
+@media(max-width:600px){.two-col{grid-template-columns:1fr;}}
+.rt-toolbar{display:flex;gap:4px;border:1px solid var(--line-strong);border-bottom:none;border-radius:var(--radius-s) var(--radius-s) 0 0;padding:6px;background:var(--paper-deep);}
+.rt-toolbar button{width:32px;height:32px;border:none;background:#fff;border-radius:6px;font-weight:700;font-size:13px;color:var(--ink-soft);}
+.rt-toolbar button:hover{background:var(--ember-soft);color:var(--ember-deep);}
+.rt-editor{min-height:180px;border:1px solid var(--line-strong);border-radius:0 0 var(--radius-s) var(--radius-s);padding:16px;background:#fff;font-size:15px;line-height:1.7;}
+.rt-editor:focus{outline:none;border-color:var(--ember-deep);}
+.rt-editor ul{padding-left:20px;}
+
+/* ---------- CARDS / LAYOUT ---------- */
+.card{background:var(--card);border:1px solid var(--line);border-radius:var(--radius-l);}
+.section{padding:64px 0;}
+.section-tight{padding:36px 0;}
+.eyebrow{font-size:12.5px;color:var(--ink-faint);font-weight:600;margin-bottom:10px;}
+
+/* ---------- HOME HERO ---------- */
+.hero{padding:76px 0 40px;text-align:center;position:relative;overflow:hidden;}
+.hero-badge{display:inline-flex;align-items:center;gap:8px;padding:7px 14px;border:1px solid var(--line-strong);border-radius:999px;font-size:12.5px;color:var(--ink-soft);margin-bottom:26px;background:#fff;}
+.hero h1{font-size:clamp(34px,5.6vw,64px);max-width:820px;margin:0 auto 18px;line-height:1.06;}
+.hero h1 em{font-style:italic;color:var(--ember-deep);}
+.hero p.lead{max-width:560px;margin:0 auto 34px;font-size:17px;}
+.search-shell{max-width:640px;margin:0 auto 30px;}
+.search-box{display:flex;align-items:center;gap:10px;background:#fff;border:1.5px solid var(--line-strong);border-radius:999px;padding:8px 8px 8px 22px;box-shadow:var(--shadow-card);}
+.search-box input{flex:1;border:none;outline:none;font-size:15.5px;font-family:inherit;background:transparent;padding:10px 0;}
+.search-box button{border:none;background:var(--ink);color:#fff;border-radius:999px;width:44px;height:44px;flex:none;display:flex;align-items:center;justify-content:center;}
+.hero-cta{display:flex;gap:12px;justify-content:center;flex-wrap:wrap;}
+.hero-stats{display:flex;gap:44px;justify-content:center;margin-top:52px;flex-wrap:wrap;}
+.hero-stats .stat-num{font-family:'Fraunces',serif;font-size:30px;font-weight:560;}
+.hero-stats .stat-lbl{font-size:12.5px;color:var(--ink-faint);}
+
+/* ---------- PROFILE GRID / CARD ---------- */
+.grid-cards{display:grid;grid-template-columns:repeat(3,1fr);gap:26px;}
+@media(max-width:980px){.grid-cards{grid-template-columns:repeat(2,1fr);}}
+@media(max-width:620px){.grid-cards{grid-template-columns:1fr;}}
+.profile-card{border:1px solid var(--line);border-radius:var(--radius-l);background:var(--card);padding:20px;transition:box-shadow .18s,transform .18s,border-color .18s;position:relative;}
+.profile-card:hover{box-shadow:var(--shadow-card);transform:translateY(-3px);border-color:var(--line-strong);}
+.pc-top{display:flex;gap:14px;margin-bottom:16px;}
+.pc-photo{width:74px;height:74px;border-radius:14px;overflow:hidden;flex:none;background:var(--paper-deep);border:1px solid var(--line);}
+.pc-photo img{width:100%;height:100%;object-fit:cover;}
+.pc-name-row{display:flex;align-items:center;gap:6px;flex-wrap:wrap;}
+.pc-name{font-family:'Fraunces',serif;font-weight:560;font-size:15.5px;letter-spacing:.01em;text-transform:uppercase;}
+.pc-profession{font-style:italic;color:var(--ink-soft);font-size:13.5px;margin-top:3px;}
+.badge{display:inline-flex;align-items:center;justify-content:center;width:18px;height:18px;border-radius:50%;flex:none;}
+.badge svg{width:100%;height:100%;}
+.badge-normal{color:var(--pine);}
+.badge-blue{color:var(--azure);}
+.badge-vip{color:var(--gold);}
+.pc-meta{display:flex;align-items:center;gap:16px;color:var(--ink-faint);font-size:12.5px;margin:14px 0 16px;padding-top:14px;border-top:1px solid var(--line);}
+.pc-meta span{display:flex;align-items:center;gap:5px;}
+.pc-bottom{display:flex;align-items:center;justify-content:space-between;}
+.pc-date{font-size:12px;color:var(--ink-faint);}
+.readmore{font-size:13.5px;font-weight:600;color:var(--ember-deep);border-bottom:1.5px solid var(--ember);padding-bottom:1px;}
+.readmore:hover{color:var(--ink);border-color:var(--ink);}
+
+/* ---------- SECTION HEAD ---------- */
+.section-head{display:flex;align-items:flex-end;justify-content:space-between;margin-bottom:34px;gap:20px;flex-wrap:wrap;}
+.section-head h2{font-size:30px;margin:0;}
+.empty-note{text-align:center;padding:60px 20px;color:var(--ink-faint);border:1px dashed var(--line-strong);border-radius:var(--radius-l);}
+
+/* ---------- FOOTER ---------- */
+.footer{background:var(--dusk);color:#DCD6C6;padding:56px 0 26px;margin-top:80px;}
+.footer .container{display:flex;justify-content:space-between;gap:40px;flex-wrap:wrap;}
+.footer h4{color:#fff;font-size:16px;}
+.footer a{color:#B7AF9B;font-size:14px;}
+.footer-col a{display:block;margin-bottom:9px;}
+.footer-bottom{border-top:1px solid #33301F;margin-top:40px;padding-top:20px;text-align:center;font-size:12.5px;color:#8A836E;}
+.footer-brand{max-width:280px;}
+.footer-brand p{color:#9C947E;font-size:13.5px;}
+
+/* ---------- AUTH PAGES ---------- */
+.auth-wrap{min-height:78vh;display:flex;align-items:center;justify-content:center;padding:60px 20px;}
+.auth-card{width:100%;max-width:440px;background:var(--card);border:1px solid var(--line);border-radius:var(--radius-l);padding:40px 36px;box-shadow:var(--shadow-card);}
+.auth-card h2{text-align:center;font-size:26px;}
+.auth-sub{text-align:center;color:var(--ink-soft);font-size:14px;margin-bottom:30px;}
+.auth-switch{text-align:center;font-size:13.5px;color:var(--ink-soft);margin-top:20px;}
+.auth-switch a{color:var(--ember-deep);font-weight:600;}
+.error-box{background:#FBEDE8;border:1px solid #E7C1B3;color:#9A3B24;font-size:13.5px;padding:10px 14px;border-radius:8px;margin-bottom:16px;}
+.demo-hint{margin-top:18px;padding:10px 14px;background:var(--paper-deep);border-radius:8px;font-size:12px;color:var(--ink-faint);text-align:center;}
+
+/* ---------- DASHBOARD ---------- */
+.dash-head{display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:16px;margin-bottom:36px;}
+.dash-welcome{font-size:13.5px;color:var(--ink-faint);}
+.dash-grid{display:grid;grid-template-columns:1.15fr .85fr;gap:26px;}
+@media(max-width:900px){.dash-grid{grid-template-columns:1fr;}}
+.dash-panel{background:var(--card);border:1px solid var(--line);border-radius:var(--radius-l);padding:28px;}
+.status-pill{display:inline-flex;align-items:center;gap:7px;padding:6px 14px;border-radius:999px;font-size:12.5px;font-weight:600;}
+.status-draft{background:var(--paper-deep);color:var(--ink-soft);}
+.status-live{background:var(--pine-soft);color:var(--pine);}
+.action-grid{display:grid;grid-template-columns:1fr 1fr;gap:12px;margin-top:22px;}
+@media(max-width:520px){.action-grid{grid-template-columns:1fr;}}
+.action-btn{display:flex;align-items:center;gap:12px;padding:16px;border:1px solid var(--line);border-radius:var(--radius-m);background:#fff;text-align:left;transition:.15s;}
+.action-btn:hover{border-color:var(--ember);background:var(--ember-soft);}
+.action-btn .ic{width:34px;height:34px;border-radius:9px;background:var(--paper-deep);display:flex;align-items:center;justify-content:center;flex:none;color:var(--ember-deep);}
+.action-btn .txt strong{display:block;font-size:14px;}
+.action-btn .txt span{font-size:12px;color:var(--ink-faint);}
+.action-btn[disabled]{opacity:.45;pointer-events:none;}
+.mini-stat-row{display:flex;gap:14px;margin-top:18px;}
+.mini-stat{flex:1;background:var(--paper-deep);border-radius:var(--radius-m);padding:14px;text-align:center;}
+.mini-stat b{display:block;font-family:'Fraunces',serif;font-size:22px;}
+.mini-stat span{font-size:11.5px;color:var(--ink-faint);}
+
+/* ---------- WIZARD ---------- */
+.wizard-shell{max-width:760px;margin:0 auto;}
+.stepper{display:flex;gap:6px;margin-bottom:40px;}
+.step-dot{flex:1;height:4px;background:var(--line);border-radius:3px;position:relative;overflow:hidden;}
+.step-dot.done,.step-dot.active{background:var(--ember);}
+.step-label{text-align:center;font-size:12.5px;color:var(--ink-faint);margin-bottom:6px;}
+.wizard-card{background:var(--card);border:1px solid var(--line);border-radius:var(--radius-l);padding:38px;}
+@media(max-width:600px){.wizard-card{padding:24px;}}
+.wizard-card h3{font-size:22px;}
+.wizard-nav{display:flex;justify-content:space-between;margin-top:32px;padding-top:24px;border-top:1px solid var(--line);}
+.repeat-row{border:1px solid var(--line);border-radius:var(--radius-m);padding:16px;margin-bottom:14px;position:relative;background:var(--paper-deep);}
+.repeat-row .rm-btn{position:absolute;top:12px;right:12px;background:none;border:none;color:var(--ink-faint);width:26px;height:26px;}
+.repeat-row .rm-btn:hover{color:#9A3B24;}
+.add-row-btn{border:1.5px dashed var(--line-strong);background:transparent;border-radius:var(--radius-m);padding:12px;width:100%;color:var(--ink-soft);font-size:13.5px;font-weight:600;}
+.add-row-btn:hover{border-color:var(--ember);color:var(--ember-deep);}
+.photo-upload{display:flex;align-items:center;gap:18px;}
+.photo-preview{width:88px;height:88px;border-radius:16px;overflow:hidden;background:var(--paper-deep);border:1px solid var(--line);flex:none;}
+.photo-preview img{width:100%;height:100%;object-fit:cover;}
+
+/* ---------- PROFILE PAGE ---------- */
+.profile-hero{background:var(--dusk);color:#F0EBDC;padding:64px 0 90px;position:relative;overflow:hidden;}
+.profile-hero-inner{display:flex;gap:34px;align-items:center;flex-wrap:wrap;}
+.profile-photo-lg{width:150px;height:150px;border-radius:24px;overflow:hidden;flex:none;border:3px solid #3a3627;background:#292414;}
+.profile-photo-lg img{width:100%;height:100%;object-fit:cover;}
+.profile-hero h1{color:#fff;font-size:clamp(28px,4vw,42px);text-transform:uppercase;letter-spacing:.01em;margin-bottom:8px;}
+.profile-hero .prof{font-style:italic;color:#C9C1A8;font-size:17px;margin-bottom:14px;}
+.hero-tags{display:flex;gap:18px;flex-wrap:wrap;color:#9F9781;font-size:13px;}
+.hero-tags span{display:flex;align-items:center;gap:6px;}
+.profile-body{max-width:760px;margin:-46px auto 0;background:var(--card);border-radius:var(--radius-l);border:1px solid var(--line);padding:44px;box-shadow:var(--shadow-pop);position:relative;}
+@media(max-width:640px){.profile-body{padding:26px;margin-top:-30px;}}
+.like-row{display:flex;gap:12px;margin-bottom:34px;}
+.like-btn{display:flex;align-items:center;gap:8px;border:1px solid var(--line-strong);border-radius:999px;padding:9px 18px;background:#fff;font-size:13.5px;font-weight:600;}
+.like-btn.liked{background:#FBE9E4;border-color:#E6B6A6;color:#9A3B24;}
+.share-btn{width:38px;height:38px;border-radius:50%;border:1px solid var(--line-strong);background:#fff;display:flex;align-items:center;justify-content:center;color:var(--ink-soft);}
+.share-btn:hover{border-color:var(--ink);color:var(--ink);}
+.prose{font-size:16px;line-height:1.8;color:var(--ink);}
+.block-title{font-size:12.5px;font-weight:700;letter-spacing:.06em;text-transform:uppercase;color:var(--ember-deep);margin:38px 0 16px;}
+.timeline{border-left:2px solid var(--line-strong);padding-left:22px;margin-left:6px;}
+.timeline-item{position:relative;margin-bottom:22px;}
+.timeline-item::before{content:'';position:absolute;left:-28px;top:5px;width:10px;height:10px;border-radius:50%;background:var(--ember);border:2px solid var(--paper);}
+.timeline-item .ti-title{font-weight:650;font-family:'Fraunces',serif;font-size:15.5px;}
+.timeline-item .ti-meta{font-size:12.5px;color:var(--ink-faint);margin-bottom:4px;}
+.timeline-item .ti-desc{font-size:14px;color:var(--ink-soft);}
+.simple-list{list-style:none;padding:0;margin:0;}
+.simple-list li{padding:12px 0;border-bottom:1px solid var(--line);font-size:14.5px;}
+.simple-list li:last-child{border-bottom:none;}
+.social-row{display:flex;gap:10px;flex-wrap:wrap;margin-top:10px;}
+.social-chip{display:flex;align-items:center;gap:8px;border:1px solid var(--line-strong);border-radius:999px;padding:9px 16px;font-size:13px;font-weight:600;background:#fff;}
+.social-chip:hover{border-color:var(--ink);}
+
+/* ---------- VERIFY / PRICING ---------- */
+.plans-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:22px;}
+@media(max-width:900px){.plans-grid{grid-template-columns:1fr;}}
+.plan-card{border:1.5px solid var(--line);border-radius:var(--radius-l);padding:30px;background:var(--card);position:relative;display:flex;flex-direction:column;}
+.plan-card.featured{border-color:var(--gold);box-shadow:0 0 0 3px var(--gold-soft);}
+.plan-tag{position:absolute;top:-13px;left:26px;background:var(--gold);color:#fff;font-size:11px;font-weight:700;padding:5px 12px;border-radius:999px;letter-spacing:.02em;}
+.plan-icon{width:44px;height:44px;border-radius:12px;display:flex;align-items:center;justify-content:center;margin-bottom:18px;}
+.plan-price{font-family:'Fraunces',serif;font-size:34px;margin:6px 0 18px;}
+.plan-price span{font-size:14px;color:var(--ink-faint);font-family:'Inter',sans-serif;font-weight:500;}
+.plan-features{list-style:none;padding:0;margin:0 0 26px;flex:1;}
+.plan-features li{display:flex;gap:10px;align-items:flex-start;font-size:13.5px;color:var(--ink-soft);margin-bottom:11px;}
+.plan-features li svg{flex:none;margin-top:2px;color:var(--pine);}
+
+.pay-screen{max-width:460px;margin:0 auto;text-align:center;padding:70px 20px;}
+.spinner{width:52px;height:52px;border-radius:50%;border:4px solid var(--line);border-top-color:var(--ember);margin:0 auto 26px;animation:spin 1s linear infinite;}
+@keyframes spin{to{transform:rotate(360deg);}}
+.success-screen{max-width:520px;margin:0 auto;text-align:center;padding:60px 20px;position:relative;}
+.success-icon{width:88px;height:88px;border-radius:50%;background:var(--pine-soft);color:var(--pine);display:flex;align-items:center;justify-content:center;margin:0 auto 26px;animation:pop .5s cubic-bezier(.2,1.4,.4,1);}
+@keyframes pop{0%{transform:scale(0);}70%{transform:scale(1.12);}100%{transform:scale(1);}}
+.confetti-piece{position:absolute;top:-10px;width:8px;height:14px;opacity:0;animation:fall 2.6s ease-in forwards;}
+@keyframes fall{0%{opacity:1;transform:translateY(0) rotate(0deg);}100%{opacity:0;transform:translateY(420px) rotate(400deg);}}
+
+/* ---------- CONTACT / ABOUT ---------- */
+.about-hero{display:flex;gap:44px;align-items:flex-start;flex-wrap:wrap;margin-bottom:50px;}
+.about-photo{width:220px;height:220px;border-radius:var(--radius-l);overflow:hidden;flex:none;border:1px solid var(--line);box-shadow:var(--shadow-card);}
+.about-photo img{width:100%;height:100%;object-fit:cover;}
+.about-facts{display:flex;flex-wrap:wrap;gap:22px;margin:18px 0 22px;}
+.about-facts .f{font-size:13px;color:var(--ink-soft);display:flex;gap:7px;align-items:center;}
+.about-facts b{color:var(--ink);}
+.edit-toggle{position:sticky;top:88px;z-index:10;display:flex;justify-content:flex-end;margin-bottom:20px;}
+.editable-note{background:var(--ember-soft);border:1px solid var(--ember);color:var(--ember-deep);font-size:12.5px;padding:9px 14px;border-radius:8px;margin-bottom:20px;}
+.two-col-section{display:grid;grid-template-columns:1fr 1fr;gap:44px;}
+@media(max-width:800px){.two-col-section{grid-template-columns:1fr;}}
+.contact-card{display:flex;gap:14px;align-items:flex-start;padding:16px 0;border-bottom:1px solid var(--line);}
+.contact-card:last-child{border-bottom:none;}
+.contact-card .ic{width:38px;height:38px;border-radius:10px;background:var(--paper-deep);display:flex;align-items:center;justify-content:center;color:var(--ember-deep);flex:none;}
+
+/* ---------- TOAST ---------- */
+#toast{position:fixed;bottom:26px;left:50%;transform:translateX(-50%) translateY(20px);background:var(--ink);color:#fff;padding:14px 24px;border-radius:999px;font-size:13.5px;font-weight:600;box-shadow:var(--shadow-pop);opacity:0;pointer-events:none;transition:.25s;z-index:200;display:flex;align-items:center;gap:10px;}
+#toast.show{opacity:1;transform:translateX(-50%) translateY(0);}
+
+.page-fade{animation:fadeUp .35s ease;}
+@keyframes fadeUp{from{opacity:0;transform:translateY(8px);}to{opacity:1;transform:translateY(0);}}
+.pill-note{display:inline-block;background:var(--azure-soft);color:var(--azure);font-size:12px;font-weight:600;padding:5px 12px;border-radius:999px;margin-bottom:16px;}
+</style>
+</head>
+<body>
+<div id="toast"></div>
+<div id="app"></div>
+
+<script>
+/* ============================================================
+   PHOENIXPEDIA — front-end prototype
+   Data persistence via window.storage (Claude Artifact API).
+   Users/Profiles/Founder data are stored as SHARED records so the
+   directory behaves like a real multi-user site for everyone
+   viewing this artifact. Payment is a placeholder simulation —
+   see PAY_INTEGRATION_POINT below to wire a real gateway.
+   ============================================================ */
+
+const DB = { users: [], profiles: [], founder: null, session: null };
+let navOpen = false;
+
+/* ---------------- storage helpers ---------------- */
+async function sGet(key, shared){
+  try{
+    const value = localStorage.getItem(key);
+    return value ? JSON.parse(value) : null;
+  }catch(e){
+    return null;
+  }
+}
+
+async function sSet(key, value, shared){
+  try{
+    localStorage.setItem(key, JSON.stringify(value));
+    return true;
+  }catch(e){
+    console.error('storage set failed', e);
+    return false;
+  }
+}
+async function saveUsers(){ await sSet('pp_users', DB.users, true); }
+async function saveProfiles(){ await sSet('pp_profiles', DB.profiles, true); }
+async function saveFounder(){ await sSet('pp_founder', DB.founder, true); }
+async function saveSession(){ await sSet('pp_session', DB.session, false); }
+
+/* ---------------- utils ---------------- */
+function uid(){ return Math.random().toString(36).slice(2,9)+Date.now().toString(36).slice(-4); }
+function esc(s){ return (s||'').replace(/[&<>"']/g, c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c])); }
+function fmtDate(iso){ if(!iso) return '—'; const d=new Date(iso); return d.toLocaleDateString('en-IN',{day:'numeric',month:'short',year:'numeric'}); }
+function fmtNum(n){ n=n||0; if(n>=1000) return (n/1000).toFixed(1).replace('.0','')+'k'; return String(n); }
+function toast(msg){
+  const t = document.getElementById('toast');
+  t.textContent = msg;
+  t.classList.add('show');
+  clearTimeout(window.__toastT);
+  window.__toastT = setTimeout(()=>t.classList.remove('show'), 2600);
+}
+function go(hash){ location.hash = hash; }
+function currentUser(){ return DB.session ? DB.users.find(u=>u.id===DB.session.userId) : null; }
+function userProfile(userId){ return DB.profiles.find(p=>p.ownerId===userId); }
+async function resizeImage(file, maxSize=420, quality=.78){
+  return new Promise((resolve)=>{
+    const reader = new FileReader();
+    reader.onload = e=>{
+      const img = new Image();
+      img.onload = ()=>{
+        let w=img.width,h=img.height;
+        if(w>h){ if(w>maxSize){h=h*(maxSize/w);w=maxSize;} } else { if(h>maxSize){w=w*(maxSize/h);h=maxSize;} }
+        const canvas=document.createElement('canvas'); canvas.width=w; canvas.height=h;
+        canvas.getContext('2d').drawImage(img,0,0,w,h);
+        resolve(canvas.toDataURL('image/jpeg',quality));
+      };
+      img.src = e.target.result;
+    };
+    reader.readAsDataURL(file);
+  });
+}
+function initials(name){ return (name||'?').trim().split(/\s+/).slice(0,2).map(w=>w[0]).join('').toUpperCase(); }
+function avatarSVG(name){
+  const palettes=[['#8F5D16','#E9C382'],['#20493F','#7FAE9E'],['#2B5A88','#9BC0DE'],['#7A3B2E','#D8A38F'],['#5B4A8A','#B9A9DE']];
+  let h=0; for(const c of (name||'x')) h=(h*31+c.charCodeAt(0))%palettes.length;
+  const [c1,c2]=palettes[h];
+  const svg=`<svg xmlns='http://www.w3.org/2000/svg' width='200' height='200'><defs><linearGradient id='g' x1='0' y1='0' x2='1' y2='1'><stop offset='0' stop-color='${c1}'/><stop offset='1' stop-color='${c2}'/></linearGradient></defs><rect width='200' height='200' fill='url(#g)'/><text x='100' y='118' font-family='Georgia,serif' font-size='72' fill='white' text-anchor='middle' opacity='.95'>${initials(name)}</text></svg>`;
+  return 'data:image/svg+xml;utf8,'+encodeURIComponent(svg);
+}
+
+/* ---------------- icons (inline svg, stroke-based) ---------------- */
+const ICON = {
+  search:`<svg viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><circle cx="11" cy="11" r="7"/><line x1="21" y1="21" x2="16.6" y2="16.6"/></svg>`,
+  eye:`<svg viewBox="0 0 24 24" width="14" height="14" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M1 12s4-7 11-7 11 7 11 7-4 7-11 7-11-7-11-7z"/><circle cx="12" cy="12" r="3"/></svg>`,
+  heart:`<svg viewBox="0 0 24 24" width="14" height="14" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M20.8 4.6a5.5 5.5 0 0 0-7.8 0L12 5.6l-1-1a5.5 5.5 0 0 0-7.8 7.8l1 1L12 21l7.8-7.6 1-1a5.5 5.5 0 0 0 0-7.8z"/></svg>`,
+  heartFill:`<svg viewBox="0 0 24 24" width="14" height="14" fill="currentColor"><path d="M20.8 4.6a5.5 5.5 0 0 0-7.8 0L12 5.6l-1-1a5.5 5.5 0 0 0-7.8 7.8l1 1L12 21l7.8-7.6 1-1a5.5 5.5 0 0 0 0-7.8z"/></svg>`,
+  cal:`<svg viewBox="0 0 24 24" width="14" height="14" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="5" width="18" height="16" rx="2"/><line x1="16" y1="3" x2="16" y2="7"/><line x1="8" y1="3" x2="8" y2="7"/><line x1="3" y1="10" x2="21" y2="10"/></svg>`,
+  briefcase:`<svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="7" width="20" height="14" rx="2"/><path d="M16 21V5a2 2 0 0 0-2-2h-4a2 2 0 0 0-2 2v16"/></svg>`,
+  grad:`<svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M22 10 12 5 2 10l10 5 10-5z"/><path d="M6 12v5c0 1.6 2.7 3 6 3s6-1.4 6-3v-5"/></svg>`,
+  award:`<svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="8" r="6"/><path d="M8.2 13.5 6 22l6-3 6 3-2.2-8.5"/></svg>`,
+  trophy:`<svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M8 21h8M12 17v4M7 4h10v4a5 5 0 0 1-10 0V4z"/><path d="M17 5h3a3 3 0 0 1-3 5M7 5H4a3 3 0 0 0 3 5"/></svg>`,
+  star:`<svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polygon points="12 2 15.1 8.6 22 9.6 17 14.6 18.2 21.5 12 18.1 5.8 21.5 7 14.6 2 9.6 8.9 8.6"/></svg>`,
+  insta:`<svg viewBox="0 0 24 24" width="15" height="15" fill="none" stroke="currentColor" stroke-width="2"><rect x="2.5" y="2.5" width="19" height="19" rx="5"/><circle cx="12" cy="12" r="4.2"/><circle cx="17.3" cy="6.7" r="1.1" fill="currentColor" stroke="none"/></svg>`,
+  fb:`<svg viewBox="0 0 24 24" width="15" height="15" fill="currentColor"><path d="M13.5 21v-8h2.7l.4-3.2h-3.1V7.7c0-.9.3-1.6 1.6-1.6h1.7V3.2C16.5 3.1 15.4 3 14.2 3c-2.6 0-4.3 1.6-4.3 4.4v2.4H7.2v3.2H10V21h3.5z"/></svg>`,
+  x:`<svg viewBox="0 0 24 24" width="15" height="15" fill="currentColor"><path d="M3 3l7.4 9.6L3.2 21h2.4l6.2-7 5 7h4.2l-7.7-10 6.9-7.9h-2.4l-5.6 6.4L8 3H3z"/></svg>`,
+  wa:`<svg viewBox="0 0 24 24" width="15" height="15" fill="currentColor"><path d="M12 2a10 10 0 0 0-8.6 15L2 22l5.2-1.4A10 10 0 1 0 12 2zm0 18a8 8 0 0 1-4.1-1.1l-.3-.2-3 .8.8-2.9-.2-.3A8 8 0 1 1 12 20zm4.4-5.9c-.2-.1-1.4-.7-1.6-.8-.2-.1-.4-.1-.5.1s-.6.7-.7.9-.3.2-.5.1a6.6 6.6 0 0 1-1.9-1.2 7.1 7.1 0 0 1-1.3-1.6c-.1-.2 0-.4.1-.5l.4-.4c.1-.1.2-.3.2-.4a.4.4 0 0 0 0-.4c-.1-.1-.5-1.2-.7-1.7s-.4-.4-.5-.4h-.5a.9.9 0 0 0-.6.3 2.7 2.7 0 0 0-.8 2 4.6 4.6 0 0 0 1 2.4 10.5 10.5 0 0 0 4.1 3.6c.6.2 1 .4 1.4.5a3.3 3.3 0 0 0 1.5.1 2.5 2.5 0 0 0 1.6-1.2 2 2 0 0 0 .1-1.2c0-.1-.2-.2-.4-.3z"/></svg>`,
+  mail:`<svg viewBox="0 0 24 24" width="15" height="15" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="2.5" y="4.5" width="19" height="15" rx="2.5"/><path d="M3 6l9 7 9-7"/></svg>`,
+  phone:`<svg viewBox="0 0 24 24" width="15" height="15" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M22 16.9v3a2 2 0 0 1-2.2 2 19.8 19.8 0 0 1-8.6-3.1 19.5 19.5 0 0 1-6-6A19.8 19.8 0 0 1 2.1 4.2 2 2 0 0 1 4.1 2h3a2 2 0 0 1 2 1.7c.1 1 .3 2 .6 2.9a2 2 0 0 1-.5 2.1L8 9.9a16 16 0 0 0 6 6l1.2-1.2a2 2 0 0 1 2.1-.5c.9.3 1.9.5 2.9.6a2 2 0 0 1 1.8 2z"/></svg>`,
+  pin:`<svg viewBox="0 0 24 24" width="15" height="15" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 10c0 6.5-9 12-9 12s-9-5.5-9-12a9 9 0 0 1 18 0z"/><circle cx="12" cy="10" r="3"/></svg>`,
+  menu:`<svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><line x1="3" y1="6" x2="21" y2="6"/><line x1="3" y1="12" x2="21" y2="12"/><line x1="3" y1="18" x2="21" y2="18"/></svg>`,
+  close:`<svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><line x1="5" y1="5" x2="19" y2="19"/><line x1="19" y1="5" x2="5" y2="19"/></svg>`,
+  edit:`<svg viewBox="0 0 24 24" width="15" height="15" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 20h9"/><path d="M16.5 3.5a2.1 2.1 0 0 1 3 3L7 19l-4 1 1-4L16.5 3.5z"/></svg>`,
+  trash:`<svg viewBox="0 0 24 24" width="15" height="15" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="3 6 5 6 21 6"/><path d="M19 6l-1 14a2 2 0 0 1-2 2H8a2 2 0 0 1-2-2L5 6"/><path d="M10 11v6M14 11v6M9 6V4a1 1 0 0 1 1-1h4a1 1 0 0 1 1 1v2"/></svg>`,
+  arrowR:`<svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/></svg>`,
+  check:`<svg viewBox="0 0 24 24" width="14" height="14" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg>`,
+  checkFill:`<svg viewBox="0 0 24 24" width="18" height="18" fill="currentColor"><path d="M12 2 14.7 4.2 18.2 3.8 19 7.3 22 9.2 20.4 12.5 22 15.8 19 17.7 18.2 21.2 14.7 20.8 12 23 9.3 20.8 5.8 21.2 5 17.7 2 15.8 3.6 12.5 2 9.2 5 7.3 5.8 3.8 9.3 4.2z"/><path d="M8.5 12.3l2.3 2.3 4.7-4.9" stroke="white" stroke-width="1.8" fill="none" stroke-linecap="round" stroke-linejoin="round"/></svg>`,
+  crown:`<svg viewBox="0 0 24 24" width="18" height="18" fill="currentColor"><path d="M3 8l4 3 5-6 5 6 4-3-2 11H5L3 8z"/></svg>`,
+  upload:`<svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="17 8 12 3 7 8"/><line x1="12" y1="3" x2="12" y2="15"/></svg>`,
+  bolt:`<svg viewBox="0 0 24 24" width="20" height="20" fill="currentColor"><path d="M13 2 4 14h6l-1 8 9-12h-6l1-8z"/></svg>`,
+  plus:`<svg viewBox="0 0 24 24" width="14" height="14" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round"><line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/></svg>`,
+  logout:`<svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M9 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h4"/><polyline points="16 17 21 12 16 7"/><line x1="21" y1="12" x2="9" y2="12"/></svg>`,
+  shield:`<svg viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 2 4 5v6c0 5 3.4 9.4 8 11 4.6-1.6 8-6 8-11V5l-8-3z"/></svg>`,
+  preview:`<svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M1 12s4-7 11-7 11 7 11 7-4 7-11 7-11-7-11-7z"/><circle cx="12" cy="12" r="3"/></svg>`
+};
+function badgeIcon(tier){
+  if(tier==='vip') return `<span class="badge badge-vip" title="VIP Gold Verified">${ICON.crown}</span>`;
+  if(tier==='blue') return `<span class="badge badge-blue" title="Blue Verified">${ICON.checkFill}</span>`;
+  if(tier==='normal') return `<span class="badge badge-normal" title="Verified">${ICON.checkFill}</span>`;
+  return '';
+}
+function logoMark(){
+  return `<img class="logo-mark" src="plogo.png" alt="Phoenixpedia Logo">`;
+}
+
+/* ================= SEED DATA ================= */
+function seedFounderUser(){
+  return { id:'founder-001', username:'founder', email:'phoenixpedia2026@gmail.com', password:'phoenix2026', isFounder:true, createdAt: new Date().toISOString() };
+}
+function seedFounder(){
+  return {
+    name:'Aarav Mehta',
+    photo:'',
+    tagline:'Founder & Chief Editor, PhoenixPedia',
+    birthdate:'1990-03-14',
+    bio:`Aarav Mehta founded PhoenixPedia in 2021 with a simple conviction: that every professional, artist, athlete and changemaker deserves an encyclopedia-grade page of their own — not a scattered trail of social posts. Before PhoenixPedia, Aarav spent six years building editorial products, and he now leads the small team that reviews and verifies every published profile on the platform.`,
+    education:[
+      {degree:'M.A. in Digital Media', institution:'National Institute of Design, Ahmedabad', year:'2014'},
+      {degree:'B.Tech in Computer Science', institution:'VIT Vellore', year:'2012'}
+    ],
+    career:[
+      {role:'Founder & Chief Editor', org:'PhoenixPedia', start:'2021', end:'Present', desc:'Built the platform from a weekend prototype into a verified public-profile encyclopedia used across India.'},
+      {role:'Head of Product', org:'Chronicle Labs', start:'2017', end:'2021', desc:'Led editorial-tech products reaching 4M monthly readers.'},
+      {role:'Product Designer', org:'Studio Inkwell', start:'2014', end:'2017', desc:'Designed publishing tools for independent journalists.'}
+    ],
+    awards:[
+      {title:'Digital Publisher of the Year', year:'2023', desc:'Awarded by the Indian Web Media Guild.'},
+      {title:'30 Under 30 — Media & Tech', year:'2019', desc:'Recognised for editorial-technology innovation.'}
+    ],
+    achievements:[
+      {title:'50,000 verified profiles', year:'2024', desc:'PhoenixPedia crossed fifty thousand verified public profiles.'},
+      {title:'Launched Blue & VIP Verification', year:'2022', desc:'Introduced tiered, human-reviewed verification.'}
+    ],
+    timeline:[
+      {year:'2021', text:'PhoenixPedia founded as a weekend project.'},
+      {year:'2022', text:'Verification system and public API launched.'},
+      {year:'2023', text:'Crossed 1 million monthly readers.'},
+      {year:'2025', text:'Opened PhoenixPedia to creators across South Asia.'}
+    ],
+    records:[
+      {title:'Fastest-growing profile encyclopedia in India (2023)', year:'2023', desc:'Independently tracked by MediaMetrics India.'}
+    ],
+    social:{instagram:'https://instagram.com/phoenixpedia', facebook:'https://facebook.com/phoenixpedia', twitter:'https://x.com/phoenixpedia', whatsapp:'https://wa.me/919999999999', email:'phoenixpedia2026@gmail.com'},
+    contact:{email:'phoenixpedia2026@gmail.com', phone:'+91 91591 64050', address:'PhoenixPedia HQ, Bandra West, Mumbai, India'}
+  };
+}
+function seedDemoProfiles(){
+  const now = Date.now();
+  const day = 86400000;
+  return [
+    {
+      id:'demo-1', ownerId:'seed-1', fullName:'Ishaan Kapoor', photo:'ishaan.jpeg', birthdate:'1988-07-22', profession:'Classical Vocalist & Composer',
+      bio:`<p>Ishaan Kapoor is a Hindustani classical vocalist whose recordings have been streamed over twelve million times. Trained under Pandit Ram Narayan Sharma from the age of nine, Ishaan blends traditional raga structures with contemporary orchestration.</p><p>He has performed at the Sydney Opera House, the Sawai Gandharva Festival, and NPR's Tiny Desk, and continues to mentor young vocalists through his foundation.</p>`,
+      education:[{degree:'Visharad in Hindustani Classical Music', institution:'Gandharva Mahavidyalaya', year:'2008'}],
+      career:[{role:'Founder', org:'Kapoor Music Foundation', start:'2015', end:'Present', desc:'Mentors 200+ students annually.'},{role:'Touring Vocalist', org:'Independent', start:'2006', end:'Present', desc:'150+ international performances.'}],
+      achievements:[{title:'12M+ streams across platforms', year:'2024', desc:''}],
+      awards:[{title:'Sangeet Natak Akademi Award', year:'2021', desc:'For contribution to Hindustani classical music.'}],
+      records:[{title:'Youngest performer at Sawai Gandharva Festival', year:'2005', desc:'Age 17.'}],
+      social:{instagram:'https://instagram.com', facebook:'https://facebook.com', twitter:'https://x.com', whatsapp:'https://wa.me/910000000000', email:'contact@ishaankapoor.example'},
+      verification:'vip', published:true, views:18420, likes:942, publishDate:new Date(now-2*day).toISOString(), createdAt:new Date(now-40*day).toISOString()
+    },
+    {
+      id:'demo-2', ownerId:'seed-2', fullName:'Meera Nair', photo:'meera.png', birthdate:'1995-02-10', profession:'Marathon Runner',
+      bio:`<p>Meera Nair is a long-distance runner and national record holder in the women's marathon. She began running competitively at 19 and has represented India at two Asian Games.</p><p>Off the track, Meera runs a free coaching clinic for first-generation athletes in Kerala.</p>`,
+      education:[{degree:'B.P.Ed', institution:'LNIPE Gwalior', year:'2016'}],
+      career:[{role:'Professional Athlete', org:'Athletics Federation of India', start:'2014', end:'Present', desc:''}],
+      achievements:[{title:'Gold — Asian Marathon Championship', year:'2022', desc:''}],
+      awards:[{title:'Arjuna Award', year:'2023', desc:'For outstanding achievement in athletics.'}],
+      records:[{title:'National record, women\'s marathon (2:22:11)', year:'2023', desc:'Set at the Delhi Half Marathon.'}],
+      social:{instagram:'https://instagram.com', facebook:'', twitter:'https://x.com', whatsapp:'https://wa.me/910000000001', email:'meera@example.com'},
+      verification:'blue', published:true, views:9310, likes:601, publishDate:new Date(now-5*day).toISOString(), createdAt:new Date(now-60*day).toISOString()
+    },
+    {
+      id:'demo-3', ownerId:'seed-3', fullName:'Rohan Bhattacharya', photo:'rohan.png', birthdate:'1979-05-05', profession:'Chef & Restaurateur',
+      bio:`<p>Rohan Bhattacharya is the chef-founder of a four-restaurant group reinterpreting Bengali cuisine for modern audiences. His first restaurant, Nolen, was named among Asia's 50 Best Restaurants in 2022.</p>`,
+      education:[{degree:'Diploma in Culinary Arts', institution:'Institute of Hotel Management, Kolkata', year:'2001'}],
+      career:[{role:'Executive Chef & Founder', org:'Nolen Restaurant Group', start:'2010', end:'Present', desc:'Grew from one outlet to four across two cities.'}],
+      achievements:[{title:"Asia's 50 Best Restaurants — Nolen", year:'2022', desc:''}],
+      awards:[{title:'Chef of the Year, Eastern India', year:'2021', desc:''}],
+      records:[],
+      social:{instagram:'https://instagram.com', facebook:'https://facebook.com', twitter:'', whatsapp:'https://wa.me/910000000002', email:'rohan@example.com'},
+      verification:'normal', published:true, views:5122, likes:288, publishDate:new Date(now-9*day).toISOString(), createdAt:new Date(now-70*day).toISOString()
+    },
+    {
+      id:'demo-4', ownerId:'seed-4', fullName:'Devika Rao', photo:'devika.png', birthdate:'1998-05-30', profession:'Product Designer',
+      bio:`<p>Devika Rao leads design at a fintech startup used by over three million people, and previously designed accessibility features shipped to hundreds of millions of devices.</p>`,
+      education:[{degree:'B.Des, Industrial Design', institution:'NID Ahmedabad', year:'2020'}],
+      career:[{role:'Head of Design', org:'FinArc', start:'2022', end:'Present', desc:''},{role:'Product Designer', org:'Global Tech Co.', start:'2020', end:'2022', desc:'Shipped accessibility features to 400M+ devices.'}],
+      achievements:[], awards:[{title:"Forbes 30 Under 30 — Design", year:'2024', desc:''}], records:[],
+      social:{instagram:'', facebook:'', twitter:'https://x.com', whatsapp:'', email:'devika@example.com'},
+      verification:'blue', published:true, views:4021, likes:210, publishDate:new Date(now-12*day).toISOString(), createdAt:new Date(now-80*day).toISOString()
+    },
+    {
+  id:'demo-5', ownerId:'seed-5', fullName:'Elon Musk', photo:'elon-musk.png', birthdate:'1971-06-28', profession:'Entrepreneur, CEO & Investor',
+  bio:`<p>Elon Musk is a technology entrepreneur known for leading Tesla and SpaceX. He founded SpaceX in 2002 and became Tesla's CEO in 2008. He has also founded or co-founded Neuralink, The Boring Company and xAI.</p><p>Musk was born in Pretoria, South Africa, and studied at the University of Pennsylvania. His career has focused on electric vehicles, space technology, artificial intelligence and advanced engineering.</p>`,
+  education:[{degree:'Bachelor of Science, Economics', institution:'University of Pennsylvania', year:'1997'},{degree:'Bachelor of Arts, Physics', institution:'University of Pennsylvania', year:'1997'}],
+  career:[{role:'CEO', org:'Tesla', start:'2008', end:'Present', desc:'Leads Tesla and helped expand electric vehicle adoption.'},{role:'Founder & CEO', org:'SpaceX', start:'2002', end:'Present', desc:'Founded SpaceX to develop reusable rockets and space transportation.'},{role:'Founder', org:'Neuralink', start:'2016', end:'Present', desc:'Founded a company developing brain-computer interface technology.'},{role:'Founder', org:'xAI', start:'2023', end:'Present', desc:'Founded an artificial intelligence company.'}],
+  achievements:[{title:'Founded SpaceX', year:'2002', desc:'Established SpaceX to develop advanced space transportation technology.'},{title:'Tesla Leadership', year:'2008', desc:'Became Tesla CEO and helped transform the electric vehicle industry.'}], awards:[], records:[{title:'World’s Richest Person', year:'2026', desc:'Ranked first on Forbes real-time billionaire rankings.'}],
+  social:{instagram:'', facebook:'', twitter:'https://x.com/elonmusk', whatsapp:'', email:''},
+  verification:'blue', published:true, views:0, likes:0, publishDate:new Date(now-1*day).toISOString(), createdAt:new Date(now-30*day).toISOString()
+},
+{
+  id:'demo-6', ownerId:'seed-6', fullName:'Larry Page', photo:'larry-page.png', birthdate:'1973-03-26', profession:'Technology Entrepreneur & Investor',
+  bio:`<p>Larry Page is an American technology entrepreneur and co-founder of Google. He co-founded Google with Sergey Brin in 1998 while studying at Stanford University.</p><p>Page helped develop PageRank, the technology that became an important part of Google's search engine. He later served as CEO of Google and Alphabet.</p>`,
+  education:[{degree:'Bachelor of Science, Computer Engineering', institution:'University of Michigan', year:'1995'},{degree:'Master of Science, Computer Science', institution:'Stanford University', year:'1998'}],
+  career:[{role:'Co-Founder', org:'Google', start:'1998', end:'Present', desc:'Co-founded Google with Sergey Brin.'},{role:'CEO', org:'Google', start:'2011', end:'2015', desc:'Led Google during a major period of international growth.'},{role:'CEO', org:'Alphabet', start:'2015', end:'2019', desc:'Served as CEO of Alphabet.'}],
+  achievements:[{title:'Co-founded Google', year:'1998', desc:'Created Google with Sergey Brin.'},{title:'Developed PageRank', year:'1998', desc:'Helped develop the PageRank search algorithm.'}], awards:[], records:[{title:'Top Global Billionaire', year:'2026', desc:'Ranked among the world\'s wealthiest people.'}],
+  social:{instagram:'', facebook:'', twitter:'', whatsapp:'', email:''},
+  verification:'blue', published:true, views:0, likes:0, publishDate:new Date(now-2*day).toISOString(), createdAt:new Date(now-31*day).toISOString()
+},
+{
+  id:'demo-7', ownerId:'seed-7', fullName:'Michael Dell', photo:'michael-dell.png', birthdate:'1965-02-23', profession:'Entrepreneur, Chairman & CEO',
+  bio:`<p>Michael Dell is the founder, chairman and CEO of Dell Technologies. He founded Dell Computer Corporation in 1984 while studying at the University of Texas.</p><p>Dell grew his company through a direct-to-customer computer business model and later expanded into enterprise technology.</p>`,
+  education:[{degree:'Pre-medical Studies', institution:'University of Texas at Austin', year:'1984'}],
+  career:[{role:'Founder', org:'Dell Computer Corporation', start:'1984', end:'Present', desc:'Founded Dell as a computer business while still a university student.'},{role:'Chairman & CEO', org:'Dell Technologies', start:'2016', end:'Present', desc:'Leads Dell Technologies.'}],
+  achievements:[{title:'Founded Dell', year:'1984', desc:'Started a computer company while attending university.'},{title:'Dell Technologies', year:'2016', desc:'Led the combination of Dell and EMC.'}], awards:[], records:[{title:'Top Global Billionaire', year:'2026', desc:'Ranked among the world\'s wealthiest people.'}],
+  social:{instagram:'', facebook:'', twitter:'', whatsapp:'', email:''},
+  verification:'blue', published:true, views:0, likes:0, publishDate:new Date(now-3*day).toISOString(), createdAt:new Date(now-32*day).toISOString()
+},
+{
+  id:'demo-8', ownerId:'seed-8', fullName:'Jeff Bezos', photo:'jeff-bezos.png', birthdate:'1964-01-12', profession:'Entrepreneur, Investor & Founder',
+  bio:`<p>Jeff Bezos is the founder of Amazon. He started Amazon in 1994 as an online bookstore and transformed it into a global e-commerce and technology company.</p><p>Bezos also founded Blue Origin and owns The Washington Post. He stepped down as Amazon CEO in 2021 and became executive chairman.</p>`,
+  education:[{degree:'Bachelor of Science, Electrical Engineering & Computer Science', institution:'Princeton University', year:'1986'}],
+  career:[{role:'Founder & CEO', org:'Amazon', start:'1994', end:'2021', desc:'Founded and led Amazon from an online bookstore into a global technology company.'},{role:'Executive Chairman', org:'Amazon', start:'2021', end:'Present', desc:'Serves as executive chairman.'},{role:'Founder', org:'Blue Origin', start:'2000', end:'Present', desc:'Founded Blue Origin to develop space technology.'}],
+  achievements:[{title:'Founded Amazon', year:'1994', desc:'Started Amazon as an online bookstore.'},{title:'Founded Blue Origin', year:'2000', desc:'Created a private aerospace company.'},{title:'Acquired The Washington Post', year:'2013', desc:'Purchased The Washington Post.'}], awards:[], records:[{title:'Top Global Billionaire', year:'2026', desc:'Ranked among the world\'s wealthiest people.'}],
+  social:{instagram:'', facebook:'', twitter:'https://x.com/JeffBezos', whatsapp:'', email:''},
+  verification:'blue', published:true, views:567800, likes:4222330, publishDate:new Date(now-4*day).toISOString(), createdAt:new Date(now-33*day).toISOString()
+},
+{
+  id:'demo-9', ownerId:'seed-9', fullName:'Sergey Brin', photo:'sergey-brin.png', birthdate:'1973-08-21', profession:'Technology Entrepreneur & Investor',
+  bio:`<p>Sergey Brin is an American technology entrepreneur and co-founder of Google. He co-founded Google with Larry Page in 1998 while studying at Stanford.</p><p>Brin helped develop Google's search technology and later served as president of Google and Alphabet.</p>`,
+  education:[{degree:'Bachelor of Science, Mathematics & Computer Science', institution:'University of Maryland', year:'1993'},{degree:'Master of Science, Computer Science', institution:'Stanford University', year:'1995'}],
+  career:[{role:'Co-Founder', org:'Google', start:'1998', end:'Present', desc:'Co-founded Google with Larry Page.'},{role:'President', org:'Google', start:'2001', end:'2011', desc:'Served as Google\'s president.'},{role:'President', org:'Alphabet', start:'2015', end:'2019', desc:'Served as president of Alphabet.'}],
+  achievements:[{title:'Co-founded Google', year:'1998', desc:'Created Google with Larry Page.'},{title:'Search Technology', year:'1998', desc:'Helped develop Google\'s search technology.'}], awards:[], records:[{title:'Top Global Billionaire', year:'2026', desc:'Ranked among the world\'s wealthiest people.'}],
+  social:{instagram:'', facebook:'', twitter:'', whatsapp:'', email:''},
+  verification:'blue', published:true, views:434343, likes:789666, publishDate:new Date(now-5*day).toISOString(), createdAt:new Date(now-34*day).toISOString()
+},
+
+{
+  id:'demo-10', ownerId:'seed-10', fullName:'Mark Zuckerberg', photo:'mark-zuckerberg.png', birthdate:'1984-05-14', profession:'Technology Entrepreneur & CEO',
+  bio:`<p>Mark Zuckerberg is the co-founder and CEO of Meta Platforms. He founded Facebook in 2004 while studying at Harvard University.</p><p>Facebook grew into one of the world's largest social networking platforms. In 2021, the company changed its name to Meta and expanded its focus toward social technology, virtual reality and artificial intelligence.</p>`,
+  education:[{degree:'Psychology & Computer Science', institution:'Harvard University', year:'2004'}],
+  career:[{role:'Co-Founder & CEO', org:'Facebook', start:'2004', end:'2021', desc:'Founded and led Facebook.'},{role:'Founder & CEO', org:'Meta Platforms', start:'2021', end:'Present', desc:'Leads Meta and its family of social and technology products.'}],
+  achievements:[{title:'Founded Facebook', year:'2004', desc:'Created Facebook while studying at Harvard.'},{title:'Founded Meta', year:'2021', desc:'Rebranded Facebook\'s parent company as Meta.'}], awards:[], records:[{title:'Top Technology Billionaire', year:'2026', desc:'Ranked among the world\'s wealthiest technology entrepreneurs.'}],
+  social:{instagram:'https://instagram.com/zuck', facebook:'https://facebook.com/zuck', twitter:'https://x.com/finkd', whatsapp:'', email:''},
+  verification:'blue', published:true, views:89000, likes:3578, publishDate:new Date(now-6*day).toISOString(), createdAt:new Date(now-35*day).toISOString()
+},
+{
+  id:'demo-11', ownerId:'seed-11', fullName:'Larry Ellison', photo:'larry-ellison.png', birthdate:'1944-08-17', profession:'Technology Entrepreneur & Investor',
+  bio:`<p>Larry Ellison is the co-founder and longtime leader of Oracle Corporation. He helped build Oracle into one of the world's largest enterprise software and technology companies.</p><p>Ellison has played a major role in database technology and enterprise computing and has also been involved in aviation and other investments.</p>`,
+  education:[{degree:'University Studies', institution:'University of Illinois at Urbana-Champaign', year:'1966'}],
+  career:[{role:'Co-Founder', org:'Oracle', start:'1977', end:'Present', desc:'Co-founded Oracle and helped establish its database business.'},{role:'CEO', org:'Oracle', start:'1977', end:'2014', desc:'Led Oracle for decades of technology expansion.'},{role:'Executive Chairman & CTO', org:'Oracle', start:'2014', end:'Present', desc:'Continues to serve in senior leadership roles.'}],
+  achievements:[{title:'Co-founded Oracle', year:'1977', desc:'Established Software Development Laboratories, later Oracle.'},{title:'Database Technology', year:'1970s', desc:'Helped popularize commercial relational database software.'}], awards:[], records:[{title:'Top Technology Billionaire', year:'2026', desc:'Ranked among the world\'s wealthiest technology entrepreneurs.'}],
+  social:{instagram:'', facebook:'', twitter:'', whatsapp:'', email:''},
+  verification:'blue', published:true, views:23499, likes:8765, publishDate:new Date(now-7*day).toISOString(), createdAt:new Date(now-36*day).toISOString()
+},
+{
+  id:'demo-12', ownerId:'seed-12', fullName:'Jensen Huang', photo:'jensen-huang.png', birthdate:'1963-02-17', profession:'Technology Entrepreneur & CEO',
+  bio:`<p>Jensen Huang is the co-founder, president and CEO of NVIDIA. He co-founded NVIDIA in 1993 and helped transform it from a graphics-chip company into a major computing and artificial intelligence technology company.</p><p>Under Huang's leadership, NVIDIA developed GPUs that became important in gaming, scientific computing and modern AI systems.</p>`,
+  education:[{degree:'Bachelor of Science, Electrical Engineering', institution:'Oregon State University', year:'1984'},{degree:'Master of Science, Electrical Engineering', institution:'Stanford University', year:'1992'}],
+  career:[{role:'Co-Founder, President & CEO', org:'NVIDIA', start:'1993', end:'Present', desc:'Leads NVIDIA\'s development of graphics processors and accelerated computing technology.'}],
+  achievements:[{title:'Co-founded NVIDIA', year:'1993', desc:'Founded NVIDIA with Chris Malachowsky and Curtis Priem.'},{title:'GPU Computing', year:'2000s', desc:'Helped expand GPU technology beyond computer graphics into high-performance computing and AI.'}], awards:[], records:[{title:'Top AI Billionaire', year:'2026', desc:'Ranked among the world\'s wealthiest technology leaders.'}],
+  social:{instagram:'', facebook:'', twitter:'', whatsapp:'', email:''},
+  verification:'blue', published:true, views:83677, likes:4560, publishDate:new Date(now-8*day).toISOString(), createdAt:new Date(now-37*day).toISOString()
+},
+
+{
+  id:'demo-13', ownerId:'seed-13', fullName:'Steve Ballmer', photo:'steve-ballmer.png', birthdate:'1956-03-24', profession:'Business Executive & Investor',
+  bio:`<p>Steve Ballmer is an American businessman and former CEO of Microsoft. He joined Microsoft in 1980 and became the company's CEO in 2000, succeeding Bill Gates.</p><p>Ballmer helped Microsoft expand its software, enterprise and cloud businesses. He later purchased the Los Angeles Clippers basketball team.</p>`,
+  education:[{degree:'Bachelor of Arts, Mathematics & Economics', institution:'Harvard University', year:'1977'},{degree:'MBA', institution:'Stanford Graduate School of Business', year:'1980'}],
+  career:[{role:'Executive', org:'Microsoft', start:'1980', end:'2000', desc:'Held several leadership positions at Microsoft.'},{role:'CEO', org:'Microsoft', start:'2000', end:'2014', desc:'Led Microsoft for fourteen years.'},{role:'Owner', org:'Los Angeles Clippers', start:'2014', end:'Present', desc:'Owns the NBA team Los Angeles Clippers.'}],
+  achievements:[{title:'Joined Microsoft', year:'1980', desc:'Became one of Microsoft\'s earliest key business leaders.'},{title:'Microsoft CEO', year:'2000', desc:'Succeeded Bill Gates as CEO.'},{title:'Purchased Clippers', year:'2014', desc:'Purchased the Los Angeles Clippers.'}], awards:[], records:[{title:'Top Billionaire', year:'2026', desc:'Ranked among the world\'s wealthiest people.'}],
+  social:{instagram:'', facebook:'', twitter:'', whatsapp:'', email:''},
+  verification:'blue', published:true, views:89000, likes:3578, publishDate:new Date(now-9*day).toISOString(), createdAt:new Date(now-38*day).toISOString()
+},
+
+{
+  id:'demo-14', ownerId:'seed-14', fullName:'Amancio Ortega', photo:'amancio-ortega.png', birthdate:'1936-03-28', profession:'Fashion Entrepreneur & Investor',
+  bio:`<p>Amancio Ortega is a Spanish entrepreneur and the founder of Inditex, the parent company of Zara. He began his career in the clothing industry and built one of the world's largest fashion businesses.</p><p>Ortega's business model emphasized fast fashion, efficient production and rapid distribution of new designs to stores.</p>`,
+  education:[],
+  career:[{role:'Co-Founder', org:'Zara', start:'1975', end:'Present', desc:'Founded Zara with Rosalia Mera.'},{role:'Founder', org:'Inditex', start:'1985', end:'Present', desc:'Built Inditex into a global fashion group.'}],
+  achievements:[{title:'Founded Zara', year:'1975', desc:'Opened the first Zara store in A Coruña, Spain.'},{title:'Built Inditex', year:'1985', desc:'Created the corporate group behind Zara and other fashion brands.'}], awards:[], records:[{title:'Fashion Industry Billionaire', year:'2026', desc:'One of the world\'s richest fashion entrepreneurs.'}],
+  social:{instagram:'', facebook:'', twitter:'', whatsapp:'', email:''},
+  verification:'blue', published:true, views:10000, likes:12000, publishDate:new Date(now-10*day).toISOString(), createdAt:new Date(now-39*day).toISOString()
+},
+{
+  id:'demo-15', ownerId:'seed-15', fullName:'Warren Buffett', photo:'warren-buffett.png', birthdate:'1930-08-30', profession:'Investor & Businessman',
+  bio:`<p>Warren Buffett is an American investor and longtime chairman and CEO of Berkshire Hathaway. He is widely regarded as one of the most successful investors in history.</p><p>Buffett began investing at a young age and built his fortune through disciplined value investing and long-term ownership of businesses.</p>`,
+  education:[{degree:'Bachelor of Science, Business Administration', institution:'University of Nebraska', year:'1950'},{degree:'Master of Science, Economics', institution:'Columbia University', year:'1951'}],
+  career:[{role:'Chairman & CEO', org:'Berkshire Hathaway', start:'1965', end:'Present', desc:'Leads Berkshire Hathaway and oversees its investments and operating businesses.'}],
+  achievements:[{title:'Berkshire Hathaway', year:'1965', desc:'Transformed Berkshire Hathaway into a diversified global holding company.'},{title:'Value Investing', year:'1950s-Present', desc:'Became famous for long-term value investing.'}], awards:[], records:[{title:'Legendary Investor', year:'2026', desc:'Recognized as one of the world\'s most successful investors.'}],
+  social:{instagram:'', facebook:'', twitter:'', whatsapp:'', email:''},
+  verification:'blue', published:true, views:12000, likes:30067, publishDate:new Date(now-11*day).toISOString(), createdAt:new Date(now-40*day).toISOString()
+},
+
+{
+  id:'demo-16', ownerId:'seed-16', fullName:'Bernard Arnault', photo:'bernard-arnault.png', birthdate:'1949-03-05', profession:'Luxury Business Executive & Investor',
+  bio:`<p>Bernard Arnault is a French businessman and chairman and CEO of LVMH. He built LVMH into the world's largest luxury-goods group through acquisitions and brand development.</p><p>His business empire includes internationally recognized fashion, jewelry, cosmetics, wine and spirits brands.</p>`,
+  education:[{degree:'Engineering', institution:'École Polytechnique', year:'1971'}],
+  career:[{role:'Chairman & CEO', org:'LVMH', start:'1989', end:'Present', desc:'Leads LVMH and its portfolio of luxury brands.'}],
+  achievements:[{title:'LVMH Leadership', year:'1989', desc:'Became chairman and CEO of LVMH.'},{title:'Luxury Brand Expansion', year:'1990s-Present', desc:'Expanded LVMH through major luxury brand acquisitions.'}], awards:[], records:[{title:'Luxury Industry Billionaire', year:'2026', desc:'One of the world\'s leading luxury business figures.'}],
+  social:{instagram:'', facebook:'', twitter:'', whatsapp:'', email:''},
+  verification:'blue', published:true, views:15000, likes:35008, publishDate:new Date(now-12*day).toISOString(), createdAt:new Date(now-41*day).toISOString()
+},
+
+{
+  id:'demo-17', ownerId:'seed-17', fullName:'Rob Walton', photo:'rob-walton.png', birthdate:'1944-10-28', profession:'Businessman & Investor',
+  bio:`<p>Rob Walton is the eldest son of Walmart founder Sam Walton. He served as chairman of Walmart and has been involved in managing the Walton family's business interests.</p><p>Much of his wealth is connected to his ownership stake in Walmart.</p>`,
+  education:[{degree:'Bachelor of Science, Business Administration', institution:'University of Arkansas', year:'1966'},{degree:'Juris Doctor', institution:'Columbia Law School', year:'1969'}],
+  career:[{role:'Chairman', org:'Walmart', start:'1992', end:'2015', desc:'Served as chairman of Walmart for more than two decades.'}],
+  achievements:[{title:'Walmart Leadership', year:'1992', desc:'Became chairman following Sam Walton\'s death.'}], awards:[], records:[{title:'Walmart Family Billionaire', year:'2026', desc:'Part of the Walton family fortune.'}],
+  social:{instagram:'', facebook:'', twitter:'', whatsapp:'', email:''},
+  verification:'blue', published:true, views:120900, likes:90067, publishDate:new Date(now-13*day).toISOString(), createdAt:new Date(now-42*day).toISOString()
+},
+
+{
+  id:'demo-18', ownerId:'seed-18', fullName:'Jim Walton', photo:'jim-walton.png', birthdate:'1948-06-07', profession:'Businessman & Investor',
+  bio:`<p>Jim Walton is the youngest son of Walmart founder Sam Walton. He has served on the Walmart board and has been involved in the Walton family's business and investment interests.</p>`,
+  education:[{degree:'Bachelor of Arts, Business Administration', institution:'University of Arkansas', year:'1971'}],
+  career:[{role:'Board Member', org:'Walmart', start:'2005', end:'2016', desc:'Served on Walmart\'s board of directors.'},{role:'Chairman & CEO', org:'Arvest Bank', start:'1975', end:'Present', desc:'Leads the family-owned Arvest banking business.'}],
+  achievements:[{title:'Walmart Board', year:'2005', desc:'Served as a Walmart director.'},{title:'Arvest Leadership', year:'1975', desc:'Helped build the family banking business.'}], awards:[], records:[{title:'Walmart Family Billionaire', year:'2026', desc:'Part of the Walton family fortune.'}],
+  social:{instagram:'', facebook:'', twitter:'', whatsapp:'', email:''},
+  verification:'blue', published:true, views:0, likes:0, publishDate:new Date(now-14*day).toISOString(), createdAt:new Date(now-43*day).toISOString()
+},
+
+{
+  id:'demo-19', ownerId:'seed-19', fullName:'Carlos Slim Helú', photo:'carlos-slim.png', birthdate:'1940-01-28', profession:'Businessman & Investor',
+  bio:`<p>Carlos Slim Helú is a Mexican businessman and investor whose business empire spans telecommunications, finance, retail and other industries.</p><p>He built América Móvil into one of the largest telecommunications companies in Latin America and has investments across many sectors.</p>`,
+  education:[{degree:'Civil Engineering', institution:'National Autonomous University of Mexico', year:'1961'}],
+  career:[{role:'Chairman', org:'América Móvil', start:'2000', end:'Present', desc:'Leads one of Latin America\'s largest telecommunications companies.'},{role:'Investor', org:'Grupo Carso', start:'1980', end:'Present', desc:'Built a diversified Mexican business group.'}],
+  achievements:[{title:'Built América Móvil', year:'2000', desc:'Expanded telecommunications operations across Latin America.'},{title:'Grupo Carso', year:'1980s', desc:'Developed a diversified business conglomerate.'}], awards:[], records:[{title:'Latin American Billionaire', year:'2026', desc:'One of Latin America\'s most prominent business figures.'}],
+  social:{instagram:'', facebook:'', twitter:'', whatsapp:'', email:''},
+  verification:'blue', published:true, views:13000, likes:90777, publishDate:new Date(now-15*day).toISOString(), createdAt:new Date(now-44*day).toISOString()
+},
+
+{
+  id:'demo-20', ownerId:'seed-20', fullName:'Alice Walton', photo:'alice-walton.png', birthdate:'1949-10-07', profession:'Businesswoman, Investor & Philanthropist',
+  bio:`<p>Alice Walton is the daughter of Walmart founder Sam Walton. Her fortune is primarily connected to her ownership of Walmart stock.</p><p>She is also known for her work in art and philanthropy, including the creation of Crystal Bridges Museum of American Art in Arkansas.</p>`,
+  education:[{degree:'Bachelor of Arts, Economics', institution:'Trinity University', year:'1971'}],
+  career:[{role:'Investor', org:'Walmart', start:'1970s', end:'Present', desc:'Holds significant Walmart family ownership.'},{role:'Founder', org:'Crystal Bridges Museum of American Art', start:'2005', end:'Present', desc:'Founded an American art museum in Bentonville, Arkansas.'}],
+  achievements:[{title:'Crystal Bridges', year:'2011', desc:'Opened Crystal Bridges Museum of American Art.'}], awards:[], records:[{title:'Top Female Billionaire', year:'2026', desc:'Among the world\'s wealthiest women.'}],
+  social:{instagram:'', facebook:'', twitter:'', whatsapp:'', email:''},
+  verification:'blue', published:true, views:80000, likes:70005, publishDate:new Date(now-16*day).toISOString(), createdAt:new Date(now-45*day).toISOString()
+},
+
+{
+  id:'demo-21', ownerId:'seed-21', fullName:'Bill Gates', photo:'bill-gates.png', birthdate:'1955-10-28', profession:'Technology Entrepreneur, Investor & Philanthropist',
+  bio:`<p>Bill Gates is an American technology entrepreneur, investor and philanthropist. He co-founded Microsoft with Paul Allen in 1975 and helped make personal-computer software widely accessible.</p><p>Gates later focused heavily on philanthropy through the Bill & Melinda Gates Foundation and other initiatives.</p>`,
+  education:[{degree:'Computer Science & Mathematics', institution:'Harvard University', year:'1975'}],
+  career:[{role:'Co-Founder', org:'Microsoft', start:'1975', end:'Present', desc:'Co-founded Microsoft with Paul Allen.'},{role:'Co-Chair', org:'Bill & Melinda Gates Foundation', start:'2000', end:'Present', desc:'Works on global health, development and education philanthropy.'}],
+  achievements:[{title:'Co-founded Microsoft', year:'1975', desc:'Built Microsoft into a global software company.'},{title:'Philanthropy', year:'2000', desc:'Expanded large-scale philanthropic work through the Gates Foundation.'}], awards:[], records:[{title:'Technology Pioneer', year:'2026', desc:'One of the most influential figures in personal computing.'}],
+  social:{instagram:'https://instagram.com/thisisbillgates', facebook:'', twitter:'https://x.com/BillGates', whatsapp:'', email:''},
+  verification:'blue', published:true, views:120000, likes:1000800, publishDate:new Date(now-17*day).toISOString(), createdAt:new Date(now-46*day).toISOString()
+},
+
+{
+  id:'demo-22', ownerId:'seed-22', fullName:'Changpeng Zhao', photo:'changpeng-zhao.png', birthdate:'1977-09-10', profession:'Cryptocurrency Entrepreneur',
+  bio:`<p>Changpeng Zhao, commonly known as CZ, is a cryptocurrency entrepreneur and the founder of Binance. He previously worked in software development and financial technology before entering the cryptocurrency industry.</p><p>Binance became one of the world's largest cryptocurrency exchanges, making CZ one of the most prominent figures in the digital asset industry.</p>`,
+  education:[{degree:'Computer Science', institution:'McGill University', year:'1999'}],
+  career:[{role:'Founder & CEO', org:'Binance', start:'2017', end:'2023', desc:'Founded Binance and built it into a major global cryptocurrency exchange.'},{role:'Founder', org:'Binance', start:'2017', end:'Present', desc:'Continues to hold a major role as Binance founder.'}],
+  achievements:[{title:'Founded Binance', year:'2017', desc:'Created one of the world\'s largest cryptocurrency exchanges.'}], awards:[], records:[{title:'Crypto Billionaire', year:'2026', desc:'One of the world\'s wealthiest cryptocurrency entrepreneurs.'}],
+  social:{instagram:'', facebook:'', twitter:'https://x.com/cz_binance', whatsapp:'', email:''},
+  verification:'blue', published:true, views:900900, likes:3567, publishDate:new Date(now-18*day).toISOString(), createdAt:new Date(now-47*day).toISOString()
+},
+
+{
+  id:'demo-23', ownerId:'seed-23', fullName:'Michael Bloomberg', photo:'michael-bloomberg.png', birthdate:'1942-02-14', profession:'Entrepreneur, Investor & Philanthropist',
+  bio:`<p>Michael Bloomberg is an American entrepreneur and founder of Bloomberg L.P. He built the company around financial data, software, news and media services used by professionals worldwide.</p><p>He has also been involved in philanthropy and public service, including serving as mayor of New York City.</p>`,
+  education:[{degree:'Bachelor of Science, Electrical Engineering', institution:'Johns Hopkins University', year:'1964'},{degree:'MBA', institution:'Harvard Business School', year:'1966'}],
+  career:[{role:'Founder', org:'Bloomberg L.P.', start:'1981', end:'Present', desc:'Founded Bloomberg and developed its financial information business.'},{role:'Mayor', org:'New York City', start:'2002', end:'2013', desc:'Served three terms as mayor of New York City.'}],
+  achievements:[{title:'Founded Bloomberg', year:'1981', desc:'Created a global financial information and media company.'},{title:'New York Mayor', year:'2002', desc:'Served three terms as mayor.'}], awards:[], records:[{title:'Financial Technology Billionaire', year:'2026', desc:'Built one of the world\'s leading financial data companies.'}],
+  social:{instagram:'https://instagram.com/mikebloomberg', facebook:'', twitter:'https://x.com/MikeBloomberg', whatsapp:'', email:''},
+  verification:'blue', published:true, views:80000, likes:70005, publishDate:new Date(now-19*day).toISOString(), createdAt:new Date(now-48*day).toISOString()
+},
+
+{
+  id:'demo-24', ownerId:'seed-24', fullName:'Thomas Peterffy', photo:'thomas-peterffy.png', birthdate:'1944-09-30', profession:'Entrepreneur & Investor',
+  bio:`<p>Thomas Peterffy is a Hungarian-American businessman and the founder of Interactive Brokers. He pioneered electronic trading and helped transform modern financial markets.</p>`,
+  education:[{degree:'Engineering', institution:'Budapest University of Technology', year:'1965'}],
+  career:[{role:'Founder & Chairman', org:'Interactive Brokers', start:'1977', end:'Present', desc:'Built Interactive Brokers into a major electronic brokerage platform.'}],
+  achievements:[{title:'Electronic Trading Pioneer', year:'1970s', desc:'Helped introduce computer-driven trading into financial markets.'},{title:'Founded Interactive Brokers', year:'1977', desc:'Established the company that became Interactive Brokers.'}], awards:[], records:[{title:'Financial Technology Pioneer', year:'2026', desc:'Recognized for pioneering electronic trading.'}],
+  social:{instagram:'', facebook:'', twitter:'', whatsapp:'', email:''},
+  verification:'blue', published:true, views:3789, likes:6788, publishDate:new Date(now-20*day).toISOString(), createdAt:new Date(now-49*day).toISOString()
+},
+{
+  id:'demo-25', ownerId:'seed-25', fullName:'Mukesh Ambani', photo:'mukesh-ambani.png', birthdate:'1957-04-19', profession:'Businessman & Chairman',
+  bio:`<p>Mukesh Ambani is an Indian businessman and chairman and managing director of Reliance Industries. Under his leadership, Reliance expanded from energy and petrochemicals into telecommunications, retail and digital services.</p><p>He led the creation and rapid expansion of Jio, which transformed India's telecommunications market.</p>`,
+  education:[{degree:'Bachelor of Chemical Engineering', institution:'Institute of Chemical Technology, Mumbai', year:'1979'},{degree:'MBA', institution:'Stanford University', year:'1981'}],
+  career:[{role:'Chairman & Managing Director', org:'Reliance Industries', start:'2002', end:'Present', desc:'Leads Reliance Industries across energy, retail and digital businesses.'},{role:'Chairman', org:'Jio', start:'2016', end:'Present', desc:'Led the expansion of Jio telecommunications and digital services.'}],
+  achievements:[{title:'Jio Launch', year:'2016', desc:'Launched Jio and rapidly expanded affordable mobile data access in India.'},{title:'Reliance Retail Expansion', year:'2006', desc:'Built Reliance Retail into a major Indian retail business.'}], awards:[], records:[{title:'India\'s Wealthiest Business Leader', year:'2026', desc:'One of India\'s most prominent business leaders.'}],
+  social:{instagram:'', facebook:'', twitter:'', whatsapp:'', email:''},
+  verification:'blue', published:true, views:0, likes:0, publishDate:new Date(now-21*day).toISOString(), createdAt:new Date(now-50*day).toISOString()
+},
+
+{
+  id:'demo-26', ownerId:'seed-26', fullName:'Masayoshi Son', photo:'masayoshi-son.png', birthdate:'1957-08-11', profession:'Technology Entrepreneur & Investor',
+  bio:`<p>Masayoshi Son is a Japanese technology entrepreneur and founder and CEO of SoftBank Group. He built SoftBank into a major technology investment company with investments across telecommunications, internet and artificial intelligence.</p>`,
+  education:[{degree:'Economics', institution:'University of California, Berkeley', year:'1980'}],
+  career:[{role:'Founder & CEO', org:'SoftBank', start:'1981', end:'Present', desc:'Founded SoftBank and expanded it into a global technology investment group.'}],
+  achievements:[{title:'Founded SoftBank', year:'1981', desc:'Started SoftBank as a software distribution business.'},{title:'Technology Investments', year:'1990s-Present', desc:'Made major investments in internet and technology companies worldwide.'}], awards:[], records:[{title:'Technology Investor', year:'2026', desc:'One of Asia\'s most influential technology investors.'}],
+  social:{instagram:'', facebook:'', twitter:'', whatsapp:'', email:''},
+  verification:'blue', published:true, views:89956, likes:456787, publishDate:new Date(now-22*day).toISOString(), createdAt:new Date(now-51*day).toISOString()
+},
+
+{
+  id:'demo-27', ownerId:'seed-27', fullName:'Gautam Adani', photo:'gautam-adani.png', birthdate:'1962-06-24', profession:'Entrepreneur & Chairman',
+  bio:`<p>Gautam Adani is an Indian industrialist and founder and chairman of the Adani Group. He built the group from a commodities trading business into a diversified infrastructure conglomerate.</p><p>Adani Group operates across ports, logistics, energy, airports and other infrastructure sectors.</p>`,
+  education:[],
+  career:[{role:'Founder & Chairman', org:'Adani Group', start:'1988', end:'Present', desc:'Built the Adani Group across infrastructure and energy sectors.'}],
+  achievements:[{title:'Founded Adani Group', year:'1988', desc:'Established the business that became the Adani Group.'},{title:'Port Expansion', year:'1990s', desc:'Expanded into port and logistics infrastructure.'}], awards:[], records:[{title:'Indian Billionaire', year:'2026', desc:'One of India\'s major infrastructure entrepreneurs.'}],
+  social:{instagram:'', facebook:'', twitter:'', whatsapp:'', email:''},
+  verification:'blue', published:true, views:508697, likes:7689490, publishDate:new Date(now-23*day).toISOString(), createdAt:new Date(now-52*day).toISOString()
+},
+
+{
+  id:'demo-28', ownerId:'seed-28', fullName:'Zhong Shanshan', photo:'zhong-shanshan.png', birthdate:'1954-12-01', profession:'Entrepreneur & Investor',
+  bio:`<p>Zhong Shanshan is a Chinese entrepreneur best known as the founder of Nongfu Spring, one of China's major bottled-water companies. He has also built significant interests in healthcare and pharmaceuticals.</p>`,
+  education:[],
+  career:[{role:'Founder & Chairman', org:'Nongfu Spring', start:'1996', end:'Present', desc:'Built Nongfu Spring into a major beverage company in China.'},{role:'Founder', org:'Yangshengtang', start:'1993', end:'Present', desc:'Founded a healthcare and pharmaceutical business.'}],
+  achievements:[{title:'Founded Nongfu Spring', year:'1996', desc:'Created a leading Chinese bottled-water brand.'}], awards:[], records:[{title:'Chinese Billionaire', year:'2026', desc:'One of China\'s prominent entrepreneurs.'}],
+  social:{instagram:'', facebook:'', twitter:'', whatsapp:'', email:''},
+  verification:'blue', published:true, views:89956, likes:456787, publishDate:new Date(now-24*day).toISOString(), createdAt:new Date(now-53*day).toISOString()
+},
+{
+  id:'demo-30', ownerId:'seed-30', fullName:'Julia Koch', photo:'julia-koch.png', birthdate:'1962-04-12', profession:'Businesswoman, Investor & Philanthropist',
+  bio:`<p>Julia Koch is an American businesswoman and philanthropist. She inherited a significant stake in Koch Industries following the death of her husband, David Koch.</p><p>She is also involved in philanthropic activities and supports medical, educational and cultural organizations.</p>`,
+  education:[{degree:'Fashion Studies', institution:'University of Central Arkansas', year:'1983'}],
+  career:[{role:'Director', org:'Koch Industries', start:'2019', end:'Present', desc:'Holds a significant ownership interest in Koch Industries.'},{role:'Philanthropist', org:'Koch Foundation', start:'2019', end:'Present', desc:'Supports medical and cultural philanthropic initiatives.'}],
+  achievements:[{title:'Koch Industries Stake', year:'2019', desc:'Inherited a significant ownership stake in Koch Industries.'}], awards:[], records:[{title:'Major Female Billionaire', year:'2026', desc:'Among the world\'s wealthiest women.'}],
+  social:{instagram:'', facebook:'', twitter:'', whatsapp:'', email:''},
+  verification:'blue', published:true, views:57688749, likes:860980, publishDate:new Date(now-26*day).toISOString(), createdAt:new Date(now-55*day).toISOString()
+},
+
+{
+  id:'demo-31', ownerId:'seed-31', fullName:'Charles Koch', photo:'charles-koch.png', birthdate:'1935-11-01', profession:'Businessman & Investor',
+  bio:`<p>Charles Koch is an American businessman and longtime leader of Koch Industries. He expanded the company into one of the largest privately held businesses in the United States.</p>`,
+  education:[{degree:'Bachelor of General Engineering', institution:'Massachusetts Institute of Technology', year:'1957'},{degree:'Master of Nuclear Engineering', institution:'Massachusetts Institute of Technology', year:'1958'},{degree:'Master of Chemical Engineering', institution:'Massachusetts Institute of Technology', year:'1960'}],
+  career:[{role:'Chairman & CEO', org:'Koch Industries', start:'1967', end:'2019', desc:'Led Koch Industries for decades.'},{role:'Chairman', org:'Koch Industries', start:'2019', end:'Present', desc:'Continues as chairman of Koch Industries.'}],
+  achievements:[{title:'Expanded Koch Industries', year:'1967', desc:'Transformed Koch Industries into a diversified industrial company.'}], awards:[], records:[{title:'Industrial Billionaire', year:'2026', desc:'One of America\'s wealthiest industrialists.'}],
+  social:{instagram:'', facebook:'', twitter:'', whatsapp:'', email:''},
+  verification:'blue', published:true, views:468680, likes:37987080, publishDate:new Date(now-27*day).toISOString(), createdAt:new Date(now-56*day).toISOString()
+},
+
+{
+  id:'demo-32', ownerId:'seed-32', fullName:'Prajogo Pangestu', photo:'prajogo-pangestu.png', birthdate:'1944-05-13', profession:'Entrepreneur & Investor',
+  bio:`<p>Prajogo Pangestu is an Indonesian businessman who built a large business empire in petrochemicals, energy and natural resources.</p><p>He began his career in timber and later expanded into petrochemicals and energy through Barito Pacific and related businesses.</p>`,
+  education:[],
+  career:[{role:'Founder & Chairman', org:'Barito Pacific', start:'1979', end:'Present', desc:'Built Barito Pacific into a diversified industrial group.'},{role:'Founder', org:'Barito Renewables Energy', start:'2010s', end:'Present', desc:'Expanded into renewable energy and power generation.'}],
+  achievements:[{title:'Built Barito Pacific', year:'1979', desc:'Developed a major Indonesian industrial group.'},{title:'Energy Expansion', year:'2010s', desc:'Expanded business interests into energy and renewables.'}], awards:[], records:[{title:'Indonesian Billionaire', year:'2026', desc:'One of Indonesia\'s wealthiest entrepreneurs.'}],
+  social:{instagram:'', facebook:'', twitter:'', whatsapp:'', email:''},
+  verification:'blue', published:true, views:8624650, likes:669890, publishDate:new Date(now-28*day).toISOString(), createdAt:new Date(now-57*day).toISOString()
+},
+
+{
+  id:'demo-33', ownerId:'seed-33', fullName:'Zhang Yiming', photo:'zhang-yiming.png', birthdate:'1983-04-01', profession:'Technology Entrepreneur',
+  bio:`<p>Zhang Yiming is a Chinese technology entrepreneur and the founder of ByteDance, the parent company of TikTok and other digital products.</p><p>He developed technology businesses focused on content recommendation and artificial intelligence, helping ByteDance become a global internet company.</p>`,
+  education:[{degree:'Software Engineering', institution:'Nankai University', year:'2005'}],
+  career:[{role:'Founder', org:'ByteDance', start:'2012', end:'2021', desc:'Founded ByteDance and built its global content platforms.'},{role:'Founder', org:'TikTok/ByteDance', start:'2016', end:'2021', desc:'Led the development of ByteDance\'s international short-video products.'}],
+  achievements:[{title:'Founded ByteDance', year:'2012', desc:'Created ByteDance, a major internet technology company.'},{title:'TikTok Growth', year:'2016', desc:'Helped develop the global short-video platform TikTok.'}], awards:[], records:[{title:'Technology Billionaire', year:'2026', desc:'One of Asia\'s major technology entrepreneurs.'}],
+  social:{instagram:'', facebook:'', twitter:'', whatsapp:'', email:''},
+  verification:'blue', published:true, views:664670, likes:989890, publishDate:new Date(now-29*day).toISOString(), createdAt:new Date(now-58*day).toISOString()
+},
+
+{
+  id:'demo-34', ownerId:'seed-34', fullName:'Tadashi Yanai', photo:'tadashi-yanai.png', birthdate:'1949-02-07', profession:'Retail Entrepreneur & Investor',
+  bio:`<p>Tadashi Yanai is a Japanese businessman and founder and chairman of Fast Retailing, the parent company of Uniqlo.</p><p>He expanded Uniqlo from a small Japanese clothing retailer into a global apparel brand known for affordable, functional clothing.</p>`,
+  education:[{degree:'Bachelor of Political Science & Economics', institution:'Waseda University', year:'1971'}],
+  career:[{role:'Chairman, President & CEO', org:'Fast Retailing', start:'1984', end:'Present', desc:'Leads Fast Retailing and its Uniqlo business.'}],
+  achievements:[{title:'Expanded Uniqlo', year:'1984', desc:'Built Uniqlo into a global clothing retailer.'},{title:'Global Retail Expansion', year:'2000s', desc:'Expanded Uniqlo stores internationally.'}], awards:[], records:[{title:'Japanese Retail Billionaire', year:'2026', desc:'One of Japan\'s richest entrepreneurs.'}],
+  social:{instagram:'', facebook:'', twitter:'', whatsapp:'', email:''},
+  verification:'blue', published:true, views:8624650, likes:669890, publishDate:new Date(now-30*day).toISOString(), createdAt:new Date(now-59*day).toISOString()
+},
+{
+  id:'demo-35', ownerId:'seed-35', fullName:'Ma Huateng', photo:'ma-huateng.png', birthdate:'1971-10-29', profession:'Technology Entrepreneur',
+  bio:`<p>Ma Huateng, also known as Pony Ma, is a Chinese technology entrepreneur and co-founder and chairman of Tencent.</p><p>Tencent became a major internet company through products including WeChat, online games, digital payments and cloud services.</p>`,
+  education:[{degree:'Bachelor of Science, Computer Science', institution:'Shenzhen University', year:'1993'}],
+  career:[{role:'Co-Founder & Chairman', org:'Tencent', start:'1998', end:'Present', desc:'Co-founded Tencent and oversees its technology businesses.'}],
+  achievements:[{title:'Founded Tencent', year:'1998', desc:'Built Tencent into a global internet and technology company.'},{title:'WeChat', year:'2011', desc:'Tencent launched WeChat, which became a major global messaging platform.'}], awards:[], records:[{title:'Chinese Technology Billionaire', year:'2026', desc:'One of China\'s leading technology entrepreneurs.'}],
+  social:{instagram:'', facebook:'', twitter:'', whatsapp:'', email:''},
+  verification:'blue', published:true, views:6760, likes:546580, publishDate:new Date(now-31*day).toISOString(), createdAt:new Date(now-60*day).toISOString()
+},
+
+{
+  id:'demo-36', ownerId:'seed-36', fullName:'Dieter Schwarz', photo:'dieter-schwarz.png', birthdate:'1939-09-24', profession:'Retail Entrepreneur & Investor',
+  bio:`<p>Dieter Schwarz is a German businessman whose wealth is connected to the Schwarz Group, the parent company of Lidl and Kaufland.</p><p>The group became one of Europe's largest retail organizations through discount supermarkets and hypermarkets.</p>`,
+  education:[],
+  career:[{role:'Owner', org:'Schwarz Group', start:'1977', end:'Present', desc:'Expanded the family retail business and its international operations.'}],
+  achievements:[{title:'Lidl Expansion', year:'1970s-1990s', desc:'Helped expand Lidl into an international discount supermarket chain.'},{title:'Schwarz Group Growth', year:'1980s-Present', desc:'Built one of Europe\'s largest retail groups.'}], awards:[], records:[{title:'European Retail Billionaire', year:'2026', desc:'One of Europe\'s wealthiest retail entrepreneurs.'}],
+  social:{instagram:'', facebook:'', twitter:'', whatsapp:'', email:''},
+  verification:'blue', published:true, views:6650, likes:576870, publishDate:new Date(now-32*day).toISOString(), createdAt:new Date(now-61*day).toISOString()
+},
+
+{
+  id:'demo-37', ownerId:'seed-37', fullName:'Ken Griffin', photo:'ken-griffin.png', birthdate:'1968-10-15', profession:'Investor & Founder',
+  bio:`<p>Ken Griffin is an American investor and founder and CEO of Citadel, a global financial services company. He began trading from his Harvard dormitory and built a major investment business.</p><p>Griffin also founded Citadel Securities, one of the world's largest market-making firms.</p>`,
+  education:[{degree:'Economics', institution:'Harvard University', year:'1989'}],
+  career:[{role:'Founder & CEO', org:'Citadel', start:'1990', end:'Present', desc:'Founded and leads Citadel investment firm.'},{role:'Founder', org:'Citadel Securities', start:'2002', end:'Present', desc:'Founded a major global market-making business.'}],
+  achievements:[{title:'Founded Citadel', year:'1990', desc:'Built a major global investment firm.'},{title:'Citadel Securities', year:'2002', desc:'Created a leading electronic market-making company.'}], awards:[], records:[{title:'Finance Billionaire', year:'2026', desc:'One of the world\'s wealthiest financial entrepreneurs.'}],
+  social:{instagram:'', facebook:'', twitter:'', whatsapp:'', email:''},
+  verification:'blue', published:true, views:7667658760, likes:4346570, publishDate:new Date(now-33*day).toISOString(), createdAt:new Date(now-62*day).toISOString()
+},
+
+{
+  id:'demo-38', ownerId:'seed-38', fullName:'Phil Knight', photo:'phil-knight.png', birthdate:'1938-02-24', profession:'Entrepreneur & Investor',
+  bio:`<p>Phil Knight is the co-founder and former chairman of Nike. He started the company with Bill Bowerman and helped transform it into one of the world's largest sportswear brands.</p>`,
+  education:[{degree:'Bachelor of Arts, Journalism', institution:'University of Oregon', year:'1959'},{degree:'MBA', institution:'Stanford Graduate School of Business', year:'1962'}],
+  career:[{role:'Co-Founder', org:'Nike', start:'1964', end:'Present', desc:'Co-founded Nike and helped build its global sportswear business.'},{role:'Chairman', org:'Nike', start:'1968', end:'2016', desc:'Led Nike as chairman for decades.'}],
+  achievements:[{title:'Founded Nike', year:'1964', desc:'Started Blue Ribbon Sports, which later became Nike.'},{title:'Global Sportswear Brand', year:'1970s-Present', desc:'Built Nike into a worldwide sportswear leader.'}], awards:[], records:[{title:'Sportswear Billionaire', year:'2026', desc:'One of the world\'s wealthiest sportswear entrepreneurs.'}],
+  social:{instagram:'', facebook:'', twitter:'', whatsapp:'', email:''},
+  verification:'blue', published:true, views:433250, likes:5236360, publishDate:new Date(now-34*day).toISOString(), createdAt:new Date(now-63*day).toISOString()
+},
+
+{
+  id:'demo-39', ownerId:'seed-39', fullName:'Miriam Adelson', photo:'miriam-adelson.png', birthdate:'1945-10-10', profession:'Physician, Businesswoman & Philanthropist',
+  bio:`<p>Miriam Adelson is a physician, businesswoman and philanthropist. Her fortune is connected to the Las Vegas Sands business founded by her late husband Sheldon Adelson.</p><p>She has also supported medical research, addiction treatment, Jewish causes and other philanthropic initiatives.</p>`,
+  education:[{degree:'Doctor of Medicine', institution:'Tel Aviv University', year:'1975'}],
+  career:[{role:'Owner & Investor', org:'Las Vegas Sands', start:'2010', end:'Present', desc:'Holds a significant ownership interest in the casino and resort company.'},{role:'Philanthropist', org:'Adelson Foundation', start:'2000s', end:'Present', desc:'Supports medical and charitable causes.'}],
+  achievements:[{title:'Medical Philanthropy', year:'1990s-Present', desc:'Supported medical research and treatment programs.'},{title:'Las Vegas Sands Ownership', year:'2021', desc:'Inherited a major stake in the company after Sheldon Adelson\'s death.'}], awards:[], records:[{title:'Female Billionaire', year:'2026', desc:'Among the world\'s wealthiest women.'}],
+  social:{instagram:'', facebook:'', twitter:'', whatsapp:'', email:''},
+  verification:'blue', published:true, views:97580, likes:895847960, publishDate:new Date(now-35*day).toISOString(), createdAt:new Date(now-64*day).toISOString()
+},
+
+{
+  id:'demo-40', ownerId:'seed-40', fullName:'Jacqueline Mars', photo:'jacqueline-mars.png', birthdate:'1939-10-10', profession:'Businesswoman & Investor',
+  bio:`<p>Jacqueline Mars is an American businesswoman and member of the Mars family, whose fortune comes from Mars Incorporated, one of the world's largest privately held food companies.</p>`,
+  education:[],
+  career:[{role:'Family Owner', org:'Mars Incorporated', start:'1980s', end:'Present', desc:'Holds a family ownership interest in Mars Incorporated.'}],
+  achievements:[{title:'Mars Family Business', year:'1980s', desc:'Participated in the family ownership of the global confectionery and food company.'}], awards:[], records:[{title:'Food Industry Billionaire', year:'2026', desc:'Member of the Mars family fortune.'}],
+  social:{instagram:'', facebook:'', twitter:'', whatsapp:'', email:''},
+  verification:'blue', published:true, views:859870, likes:678390, publishDate:new Date(now-36*day).toISOString(), createdAt:new Date(now-65*day).toISOString()
+},
+
+{
+  id:'demo-41', ownerId:'seed-41', fullName:'John Mars', photo:'john-mars.png', birthdate:'1935-10-15', profession:'Businessman & Investor',
+  bio:`<p>John Mars is an American businessman and member of the Mars family. His wealth comes primarily from the family's ownership of Mars Incorporated, a global food and confectionery company.</p>`,
+  education:[],
+  career:[{role:'Family Owner', org:'Mars Incorporated', start:'1970s', end:'Present', desc:'Holds family ownership in Mars Incorporated.'}],
+  achievements:[{title:'Mars Family Business', year:'1970s', desc:'Participated in the ownership of the family business.'}], awards:[], records:[{title:'Food Industry Billionaire', year:'2026', desc:'Member of the Mars family fortune.'}],
+  social:{instagram:'', facebook:'', twitter:'', whatsapp:'', email:''},
+  verification:'blue', published:true, views:8878680, likes:78680, publishDate:new Date(now-37*day).toISOString(), createdAt:new Date(now-66*day).toISOString()
+},
+
+{
+  id:'demo-42', ownerId:'seed-42', fullName:'Gianluigi Aponte', photo:'gianluigi-aponte.png', birthdate:'1940-06-27', profession:'Shipping Entrepreneur',
+  bio:`<p>Gianluigi Aponte is an Italian-Swiss shipping entrepreneur and founder of MSC, one of the world's largest container shipping companies.</p><p>He started MSC with his wife Rafaela Aponte-Diamant and built it into a global transportation and logistics group.</p>`,
+  education:[],
+  career:[{role:'Founder & Chairman', org:'MSC', start:'1970', end:'Present', desc:'Founded MSC and expanded it into a global shipping company.'}],
+  achievements:[{title:'Founded MSC', year:'1970', desc:'Started Mediterranean Shipping Company with one ship.'},{title:'Global Shipping Expansion', year:'1970s-Present', desc:'Built MSC into a global container shipping and logistics company.'}], awards:[], records:[{title:'Shipping Billionaire', year:'2026', desc:'One of the world\'s leading shipping entrepreneurs.'}],
+  social:{instagram:'', facebook:'', twitter:'', whatsapp:'', email:''},
+  verification:'blue', published:true, views:7657560, likes:34650, publishDate:new Date(now-38*day).toISOString(), createdAt:new Date(now-67*day).toISOString()
+},
+
+{
+  id:'demo-43', ownerId:'seed-43', fullName:'Thomas Frist Jr.', photo:'thomas-frist.png', birthdate:'1938-08-12', profession:'Healthcare Entrepreneur & Investor',
+  bio:`<p>Thomas Frist Jr. is an American physician and businessman who co-founded Hospital Corporation of America, one of the largest hospital operators in the United States.</p><p>His career has focused on healthcare services and hospital management.</p>`,
+  education:[{degree:'Bachelor of Science', institution:'Vanderbilt University', year:'1960'},{degree:'Doctor of Medicine', institution:'Vanderbilt University', year:'1964'}],
+  career:[{role:'Co-Founder', org:'Hospital Corporation of America', start:'1968', end:'Present', desc:'Co-founded HCA and helped build a major healthcare services company.'}],
+  achievements:[{title:'Founded HCA', year:'1968', desc:'Helped create one of America\'s largest hospital companies.'}], awards:[], records:[{title:'Healthcare Billionaire', year:'2026', desc:'One of America\'s prominent healthcare entrepreneurs.'}],
+  social:{instagram:'', facebook:'', twitter:'', whatsapp:'', email:''},
+  verification:'blue', published:true, views:859870, likes:678390, publishDate:new Date(now-39*day).toISOString(), createdAt:new Date(now-68*day).toISOString()
+},
+
+{
+  id:'demo-44', ownerId:'seed-44', fullName:'Mark Mateschitz', photo:'mark-mateschitz.png', birthdate:'1992-05-07', profession:'Businessman & Investor',
+  bio:`<p>Mark Mateschitz is an Austrian businessman and heir to a significant stake in Red Bull. He inherited his ownership interest after the death of his father, Red Bull co-founder Dietrich Mateschitz.</p>`,
+  education:[{degree:'Business Administration', institution:'University of Applied Sciences Salzburg', year:'2014'}],
+  career:[{role:'Shareholder', org:'Red Bull', start:'2022', end:'Present', desc:'Holds a significant ownership stake in Red Bull.'}],
+  achievements:[{title:'Red Bull Ownership', year:'2022', desc:'Inherited a major stake in Red Bull.'}], awards:[], records:[{title:'Young Billionaire', year:'2026', desc:'One of the world\'s youngest major billionaires.'}],
+  social:{instagram:'', facebook:'', twitter:'', whatsapp:'', email:''},
+  verification:'blue', published:true, views:879790, likes:432430, publishDate:new Date(now-40*day).toISOString(), createdAt:new Date(now-69*day).toISOString()
+},
+{
+  id:'demo-45', ownerId:'seed-45', fullName:'Stephen Schwarzman', photo:'stephen-schwarzman.png', birthdate:'1947-02-14', profession:'Investor & Businessman',
+  bio:`<p>Stephen Schwarzman is an American businessman and co-founder, chairman and CEO of Blackstone. He helped build Blackstone into one of the world's largest alternative asset-management companies.</p>`,
+  education:[{degree:'Bachelor of Arts', institution:'Yale University', year:'1969'},{degree:'MBA', institution:'Harvard Business School', year:'1972'}],
+  career:[{role:'Co-Founder, Chairman & CEO', org:'Blackstone', start:'1985', end:'Present', desc:'Co-founded Blackstone and leads its global investment business.'}],
+  achievements:[{title:'Founded Blackstone', year:'1985', desc:'Co-founded Blackstone with Peter Peterson.'},{title:'Global Investment Growth', year:'1990s-Present', desc:'Built Blackstone into a leading alternative asset manager.'}], awards:[], records:[{title:'Finance Billionaire', year:'2026', desc:'One of the world\'s major investment executives.'}],
+  social:{instagram:'', facebook:'', twitter:'', whatsapp:'', email:''},
+  verification:'blue', published:true, views:786250, likes:85960, publishDate:new Date(now-41*day).toISOString(), createdAt:new Date(now-70*day).toISOString()
+},
+
+{
+  id:'demo-46', ownerId:'seed-46', fullName:'MacKenzie Scott', photo:'mackenzie-scott.png', birthdate:'1970-04-07', profession:'Author, Philanthropist & Investor',
+  bio:`<p>MacKenzie Scott is an American author and philanthropist. She received a significant stake in Amazon following her divorce from Jeff Bezos and has become one of the world's largest individual philanthropists.</p><p>Through her philanthropic organization, Yield Giving, she has donated billions of dollars to nonprofit organizations.</p>`,
+  education:[{degree:'Bachelor of Arts, English', institution:'Princeton University', year:'1992'}],
+  career:[{role:'Author', org:'Independent', start:'2005', end:'Present', desc:'Published novels and other literary work.'},{role:'Philanthropist', org:'Yield Giving', start:'2020', end:'Present', desc:'Provides large unrestricted grants to nonprofit organizations.'}],
+  achievements:[{title:'Amazon Stake', year:'2019', desc:'Received a major Amazon ownership stake following her divorce.'},{title:'Large-Scale Philanthropy', year:'2020', desc:'Began distributing billions of dollars to nonprofit organizations.'}], awards:[], records:[{title:'Major Philanthropist', year:'2026', desc:'One of the world\'s most significant individual philanthropists.'}],
+  social:{instagram:'', facebook:'', twitter:'', whatsapp:'', email:''},
+  verification:'blue', published:true, views:85670, likes:5970170, publishDate:new Date(now-42*day).toISOString(), createdAt:new Date(now-71*day).toISOString()
+},
+
+{
+  id:'demo-47', ownerId:'seed-47', fullName:'Dilip Shanghvi', photo:'dilip-shanghvi.png', birthdate:'1955-10-01', profession:'Pharmaceutical Entrepreneur & Investor',
+  bio:`<p>Dilip Shanghvi is an Indian businessman and founder of Sun Pharmaceutical Industries. He started the company in 1982 and grew it into one of India's largest pharmaceutical companies.</p>`,
+  education:[{degree:'Bachelor of Commerce', institution:'University of Calcutta', year:'1976'}],
+  career:[{role:'Founder & Managing Director', org:'Sun Pharmaceutical Industries', start:'1982', end:'Present', desc:'Founded and expanded Sun Pharma into a global pharmaceutical company.'}],
+  achievements:[{title:'Founded Sun Pharma', year:'1982', desc:'Started Sun Pharmaceutical Industries with a small initial business.'},{title:'Global Expansion', year:'1990s-Present', desc:'Expanded Sun Pharma through international growth and acquisitions.'}], awards:[], records:[{title:'Indian Pharmaceutical Billionaire', year:'2026', desc:'One of India\'s leading pharmaceutical entrepreneurs.'}],
+  social:{instagram:'', facebook:'', twitter:'', whatsapp:'', email:''},
+  verification:'blue', published:true, views:68360870, likes:830680, publishDate:new Date(now-43*day).toISOString(), createdAt:new Date(now-72*day).toISOString()
+},
+
+{
+  id:'demo-48', ownerId:'seed-48', fullName:'Savitri Jindal', photo:'savitri-jindal.png', birthdate:'1950-03-20', profession:'Businesswoman & Philanthropist',
+  bio:`<p>Savitri Jindal is an Indian businesswoman and the chairperson emeritus of the OP Jindal Group. She became involved in the family's industrial businesses after the death of her husband, Om Prakash Jindal.</p><p>The Jindal Group has major interests in steel, power and infrastructure.</p>`,
+  education:[],
+  career:[{role:'Chairperson Emeritus', org:'OP Jindal Group', start:'2005', end:'Present', desc:'Leads family interests connected with the Jindal industrial group.'}],
+  achievements:[{title:'Jindal Group Leadership', year:'2005', desc:'Continued the family\'s industrial business interests.'},{title:'Philanthropy', year:'2000s-Present', desc:'Supports education, healthcare and social initiatives.'}], awards:[], records:[{title:'Wealthiest Indian Woman', year:'2026', desc:'One of India\'s wealthiest businesswomen.'}],
+  social:{instagram:'', facebook:'', twitter:'', whatsapp:'', email:''},
+  verification:'blue', published:true, views:62376289860, likes:8746873970, publishDate:new Date(now-44*day).toISOString(), createdAt:new Date(now-73*day).toISOString()
+},
+
+{
+  id:'demo-49', ownerId:'seed-49', fullName:'Eric Schmidt', photo:'eric-schmidt.png', birthdate:'1955-04-27', profession:'Technology Executive & Investor',
+  bio:`<p>Eric Schmidt is an American technology executive who served as CEO and later executive chairman of Google. He joined Google in 2001 and helped the company scale its operations globally.</p><p>Schmidt has also been involved in technology investment, artificial intelligence and national technology policy.</p>`,
+  education:[{degree:'Bachelor of Science, Electrical Engineering', institution:'Princeton University', year:'1976'},{degree:'Master of Science', institution:'University of California, Berkeley', year:'1979'},{degree:'PhD, Computer Science', institution:'University of California, Berkeley', year:'1982'}],
+  career:[{role:'CEO', org:'Google', start:'2001', end:'2011', desc:'Led Google during a major period of global expansion.'},{role:'Executive Chairman', org:'Google', start:'2011', end:'2015', desc:'Served as executive chairman.'},{role:'Executive Chairman', org:'Alphabet', start:'2015', end:'2018', desc:'Helped guide Alphabet after Google\'s corporate restructuring.'}],
+  achievements:[{title:'Google CEO', year:'2001', desc:'Led Google as it grew into a global technology company.'},{title:'Alphabet Leadership', year:'2015', desc:'Served as executive chairman of Alphabet.'}], awards:[], records:[{title:'Technology Executive Billionaire', year:'2026', desc:'One of the world\'s prominent technology executives and investors.'}],
+  social:{instagram:'', facebook:'', twitter:'', whatsapp:'', email:''},
+  verification:'blue', published:true, views:76860, likes:752937500, publishDate:new Date(now-45*day).toISOString(), createdAt:new Date(now-74*day).toISOString()
+},
+
+{
+  id:'demo-50', ownerId:'seed-50', fullName:'Len Blavatnik', photo:'len-blavatnik.png', birthdate:'1957-06-14', profession:'Investor & Businessman',
+  bio:`<p>Len Blavatnik is a British-American businessman and investor. He founded Access Industries, a diversified investment company with interests in technology, media, chemicals and natural resources.</p>`,
+  education:[{degree:'Bachelor of Science, Computer Science', institution:'Columbia University', year:'1981'},{degree:'MBA', institution:'Harvard Business School', year:'1989'}],
+  career:[{role:'Founder & Chairman', org:'Access Industries', start:'1986', end:'Present', desc:'Founded Access Industries and built a diversified investment portfolio.'}],
+  achievements:[{title:'Founded Access Industries', year:'1986', desc:'Created a global investment company.'},{title:'Diversified Investments', year:'1990s-Present', desc:'Built investments across multiple industries.'}], awards:[], records:[{title:'Global Investor', year:'2026', desc:'One of the world\'s wealthiest diversified investors.'}],
+  social:{instagram:'', facebook:'', twitter:'', whatsapp:'', email:''},
+  verification:'blue', published:true, views:88869680, likes:5690, publishDate:new Date(now-46*day).toISOString(), createdAt:new Date(now-75*day).toISOString()
+},
+
+{
+  id:'demo-51', ownerId:'seed-51', fullName:'Shiv Nadar', photo:'shiv-nadar.png', birthdate:'1945-07-14', profession:'Technology Entrepreneur & Philanthropist',
+  bio:`<p>Shiv Nadar is an Indian technology entrepreneur and founder of HCL Technologies. He helped build HCL from a small IT hardware company into a major global technology services organization.</p><p>He is also known for large-scale philanthropic work through the Shiv Nadar Foundation.</p>`,
+  education:[{degree:'Electrical & Electronics Engineering', institution:'PSG College of Technology', year:'1967'}],
+  career:[{role:'Founder', org:'HCL', start:'1976', end:'Present', desc:'Founded HCL and helped build its global technology business.'},{role:'Founder', org:'Shiv Nadar Foundation', start:'1994', end:'Present', desc:'Supports education and social development initiatives.'}],
+  achievements:[{title:'Founded HCL', year:'1976', desc:'Co-founded HCL and built it into a global technology company.'},{title:'Shiv Nadar Foundation', year:'1994', desc:'Established a major philanthropic organization focused on education.'}], awards:[], records:[{title:'Indian Technology Billionaire', year:'2026', desc:'One of India\'s leading technology entrepreneurs and philanthropists.'}],
+  social:{instagram:'', facebook:'', twitter:'', whatsapp:'', email:''},
+  verification:'blue', published:true, views:867630, likes:867698370, publishDate:new Date(now-47*day).toISOString(), createdAt:new Date(now-76*day).toISOString()
+}
+  ];
+}
+
+/* ================= INIT ================= */async function initDB(){
+  DB.users = await sGet('pp_users', true) || [];
+  DB.profiles = await sGet('pp_profiles', true) || [];
+  DB.founder = await sGet('pp_founder', true);
+  let dirty = false;
+  if(!DB.founder){ DB.founder = seedFounder(); dirty = true; await saveFounder(); }
+  if(!DB.users.find(u=>u.isFounder)){ DB.users.unshift(seedFounderUser()); await saveUsers(); }
+  if(DB.profiles.length===0){ DB.profiles = seedDemoProfiles(); await saveProfiles(); }
+  DB.session = await sGet('pp_session', false);
+  if(DB.session && !DB.users.find(u=>u.id===DB.session.userId)) DB.session = null;
+}
+
+/* ================= ROUTER ================= */
+const routes = {};
+window.addEventListener('hashchange', ()=>render());
+async function boot(){
+  await initDB();
+  if(!location.hash) location.hash = '#/';
+  render();
+}
+function parseHash(){
+  const h = location.hash.replace(/^#\//,'');
+  const [path, qs] = h.split('?');
+  const parts = path.split('/').filter(Boolean);
+  const query = {};
+  if(qs) qs.split('&').forEach(kv=>{ const [k,v]=kv.split('='); query[k]=decodeURIComponent(v||''); });
+  return { parts, query };
+}
+function requireAuth(){
+  if(!currentUser()){ toast('Please log in to continue.'); go('#/login'); return false; }
+  return true;
+}
+
+function render(){
+  const { parts, query } = parseHash();
+  const root = parts[0] || '';
+  const app = document.getElementById('app');
+  let html = '';
+  window.scrollTo({top:0,behavior:'instant'});
+
+  if(root===''){ html = pageHome(query); }
+  else if(root==='about'){ html = pageAbout(); }
+  else if(root==='contact'){ html = pageContact(); }
+  else if(root==='login'){ html = pageLogin(); }
+  else if(root==='register'){ html = pageRegister(); }
+  else if(root==='dashboard'){ if(!requireAuth()) return; html = pageDashboard(); }
+  else if(root==='wizard'){ if(!requireAuth()) return; html = pageWizard(query); }
+  else if(root==='profile' && parts[1]){ html = pageProfile(parts[1]); }
+  else if(root==='verify'){ if(!requireAuth()) return; html = pageVerify(query); }
+  else { html = page404(); }
+
+  app.innerHTML = `${navBar(root)}<main class="page-fade">${html}</main>${footerHTML()}`;
+  bindGlobal();
+  afterRender(root, query, parts);
+}
+
+/* ================= SHARED CHROME ================= */
+function navBar(active){ 
+  const u = currentUser(); 
+  return ` 
+  <header class="nav"> 
+    <div class="container nav-inner"> 
+      <a href="#/" class="logo">
+        <img class="logo-mark" src="plogo.png" alt="PhoenixPedia logo">
+        <span>PhoenixPedia</span>
+      </a> 
+      <nav class="nav-links" id="navLinks"> 
+        <a href="#/" class="${active===''?'active':''}">Home</a> 
+        <a href="#/about" class="${active==='about'?'active':''}">About</a> 
+        <a href="#/contact" class="${active==='contact'?'active':''}">Contact</a> 
+        ${u?`<a href="#/dashboard" class="${active==='dashboard'?'active':''}">Dashboard</a>`:''} 
+        <span style="display:flex;gap:10px;margin-top:6px;"> 
+          ${u ? `<button class="btn btn-outline btn-sm" data-action="logout">${ICON.logout} Logout</button>` 
+              : `<a href="#/login" class="btn btn-outline btn-sm">Login</a><a href="#/register" class="btn btn-primary btn-sm">Create admin account</a>`} 
+        </span> 
+      </nav> 
+    </div>
+  </header>`;
+}
+  function footerHTML(){
+  const f = DB.founder;
+
+  return `
+  <footer class="footer">
+    <div class="container">
+
+      <div class="footer-brand">
+        <div class="logo" style="color:#fff;margin-bottom:12px;">
+          ${logoMark()} PhoenixPedia
+        </div>
+        <p>
+          A public-profile encyclopedia for professionals, artists, athletes and changemakers — verified, and built to last.
+        </p>
+      </div>
+
+      <div class="footer-col">
+        <h4>Explore</h4>
+        <a href="#/">Home</a>
+        <a href="#/about">About the founder</a>
+        <a href="#/contact">Contact</a>
+      </div>
+
+      <div class="footer-col">
+        <h4>Account</h4>
+        <a href="#/register">Create admin account</a>
+        <a href="#/login">Login</a>
+        <a href="#/dashboard">Dashboard</a>
+      </div>
+
+      <div class="footer-col">
+        <h4>Founder</h4>
+        <a href="mailto:${esc(f.contact.email)}">
+          ${esc(f.contact.email)}
+        </a>
+        <a href="#/contact">
+          ${esc(f.contact.phone)}
+        </a>
+      </div>
+
+    </div>
+
+    <div class="footer-bottom">
+      © ${new Date().getFullYear()} PhoenixPedia. All rights reserved. Prototype build — payment gateway not yet connected.
+    </div>
+  </footer>`;
+}
+function bindGlobal(){
+  const burger = document.getElementById('burgerBtn');
+  if(burger) burger.onclick = ()=>{ document.getElementById('navLinks').classList.toggle('open'); };
+  document.querySelectorAll('[data-action="logout"]').forEach(b=>{
+    b.onclick = async ()=>{ DB.session=null; await saveSession(); toast('Logged out.'); go('#/'); };
+  });
+}
+
+/* ================= HOME ================= */
+function profileCard(p){
+  const photo = p.photo || avatarSVG(p.fullName);
+  return `
+  <a href="#/profile/${p.id}" class="profile-card" style="display:block;">
+    <div class="pc-top">
+      <div class="pc-photo"><img src="${photo}" alt="${esc(p.fullName)}, ${esc(p.profession)}. A formal professional portrait displayed in a profile card with a calm tone."></div>
+      <div>
+        <div class="pc-name-row"><span class="pc-name">${esc(p.fullName)}</span>${badgeIcon(p.verification)}</div>
+        <div class="pc-profession">${esc(p.profession)}</div>
+      </div>
+    </div>
+    <div class="pc-meta">
+      <span>${ICON.eye} ${fmtNum(p.views)} views</span>
+      <span>${ICON.heart} ${fmtNum(p.likes)} likes</span>
+    </div>
+    <div class="pc-bottom">
+      <span class="pc-date">${ICON.cal} ${fmtDate(p.publishDate)}</span>
+      <span class="readmore">Read more</span>
+    </div>
+  </a>`;
+}
+function pageHome(query){
+  const search = (query.q||'').toLowerCase();
+  let list = DB.profiles.filter(p=>p.published);
+  if(search){ list = list.filter(p=> p.fullName.toLowerCase().includes(search) || p.profession.toLowerCase().includes(search)); }
+  list = list.sort((a,b)=> new Date(b.publishDate)-new Date(a.publishDate));
+  const totalViews = DB.profiles.reduce((s,p)=>s+(p.views||0),0);
+  return `
+  <section class="hero">
+    <div class="container">
+      <div class="hero-badge">${ICON.shield} Verified public-profile encyclopedia</div>
+      <h1>Every remarkable life, written up <em>properly</em>.</h1>
+      <p class="lead">Register, build a professional biography page in minutes, and get it verified — from a simple badge to full VIP gold recognition.</p>
+      <div class="search-shell">
+        <form class="search-box" id="homeSearch">
+          <span style="color:var(--ink-faint);">${ICON.search}</span>
+          <input type="text" name="q" placeholder="Search a name or profession — e.g. “classical vocalist”" value="${esc(query.q||'')}">
+          <button type="submit" aria-label="Search">${ICON.arrowR}</button>
+        </form>
+      </div>
+      <div class="hero-cta">
+        <a href="#/register" class="btn btn-primary">${ICON.plus} Create admin account</a>
+        <a href="#/login" class="btn btn-outline">Login</a>
+      </div>
+      <div class="hero-stats">
+        <div><div class="stat-num">${fmtNum(DB.profiles.filter(p=>p.published).length)}</div><div class="stat-lbl">Published profiles</div></div>
+        <div><div class="stat-num">${fmtNum(totalViews)}</div><div class="stat-lbl">Total reads</div></div>
+        <div><div class="stat-num">3</div><div class="stat-lbl">Verification tiers</div></div>
+      </div>
+    </div>
+  </section>
+
+  <section class="section">
+    <div class="container">
+      <div class="section-head">
+        <div>
+          <div class="eyebrow">Latest entries</div>
+          <h2>Recently published profiles</h2>
+        </div>
+        ${search? `<a href="#/" class="btn btn-ghost btn-sm">Clear search</a>`:''}
+      </div>
+      ${list.length? `<div class="grid-cards">${list.map(profileCard).join('')}</div>` : `<div class="empty-note">No profiles match “${esc(query.q||'')}”. Try another name or profession.</div>`}
+    </div>
+  </section>`;
+}
+
+/* ================= ABOUT (founder only editable) ================= */
+function pageAbout(){
+  const f = DB.founder;
+  const u = currentUser();
+  const canEdit = u && u.isFounder;
+  const photo = f.photo || 'klai.png'; 
+  return `
+  <section class="section">
+    <div class="container">
+      ${canEdit? `<div class="edit-toggle"><button class="btn btn-dark btn-sm" id="toggleAboutEdit">${ICON.edit} Edit about page</button></div>`:''}
+      <div id="aboutView">
+        <div class="eyebrow">About PhoenixPedia</div>
+        <div class="about-hero">
+          <div class="about-photo"><img src="${photo}" alt="${esc(f.name)},This is Amb.Dr.R.kalaiarasan Multi world record holder
+
+Phoenix books of world records founder and chairman.
+
+Tamilnadu state government cultural trainer Coimbatore.
+
+Youth ambassador in United Nations international youth society and sustainable development goals.
+
+Goodwill ambassador in Indonesia.
+
+Campus ambassador in international model United Nations.
+
+Giramiya puthalvan academy founder and chairman.
+
+Maruthi foundation srilanga president.
+
+India Human Rights president @Srilanga.
+
+United nations helping hand international UNSDG17 Tamilnadu state Co-president."></div>
+          <div style="flex:1;min-width:260px;">
+            <h1 style="font-size:36px;">${esc(f.name)}</h1>
+            <p class="pc-profession" style="font-size:15px;color:var(--ink-soft);font-style:italic;">${esc(f.tagline)}</p>
+            <div class="about-facts">
+              <span class="f">${ICON.cal}<b>21-05-2000 from Coimbatore chennai,Tamilnadu,india.</b> ${fmtDate(f.birthdate)}</span>
+              <span class="f">${ICON.grad}<b>DOCTORATE IN  FLOK ARTS.</b> ${f.education.length} qualification${f.education.length!==1?'s':''}</span>
+              <span class="f">${ICON.briefcase}<b>DNYS.</b> ${f.career.length} role${f.career.length!==1?'s':''}</span>
+            </div>
+            <p class="prose">${esc(f.bio)}</p>
+            <div class="social-row">
+              ${f.social.instagram?`<a class="https://www.instagram.com/biggboss_kalaiyarasan_official?stkn=cTU1MHNycnBoMXk1" href="${esc(f.social.instagram)}" target="_blank">${ICON.insta} Instagram</a>`:''}
+              ${f.social.facebook?`<a class="https://www.facebook.com/share/1BnW2Canuz/" href="${esc(f.social.facebook)}" target="_blank">${ICON.fb} Facebook</a>`:''}
+              ${f.social.youtube?`<a class="https://youtube.com/@biggboss_kalaiyarasan?si=j-LA98_FLbWmPIwG" href="${esc(f.social.youtube)}" target="_blank">${ICON.yt} YouTube</a>`:''}
+               ${f.social.snapchat?`<a class="https://www.snapchat.com/add/bbkalaiyarasan?share_id=XSXYGvJIzc8&locale=en-IN" href="${esc(f.social.snapchat)}" target="_blank">${ICON.sc} Snapchat</a>`:''}
+              ${f.social.whatsapp?`<a class="https://wa.me/919159164050" href="${esc(f.social.whatsapp)}" target="_blank">${ICON.wa} WhatsApp</a>`:''}
+              ${f.social.email?`<a class="phoenixpedia2026@gmail.com" href="mailto:${esc(f.social.email)}">${ICON.mail} Email</a>`:''}
+            </div>
+          </div>
+        </div>
+
+        <div class="two-col-section">
+          <div>
+            <div class="block-title">DOCTORATE IN  FLOK ARTS.</div>
+            <ul class="simple-list">${f.education.map(e=>`<li><strong>${esc(e.degree)}</strong> — ${esc(e.institution)} <span style="color:var(--ink-faint)">(${esc(e.year)})</span></li>`).join('')}</ul>
+
+            <div class="block-title">DNYS(Diploma in Naturopathy)</div>
+            <div class="timeline">${f.career.map(c=>`<div class="timeline-item"><div class="ti-title">${esc(c.role)}, ${esc(c.org)}</div><div class="ti-meta">${esc(c.start)} — ${esc(c.end)}</div><div class="ti-desc">${esc(c.desc)}</div></div>`).join('')}</div>
+          </div>
+          <div>
+            <div class="block-title">1.WHILE DANCING KARAGATTAM PREDOMINANT PICK OF 18,200 NEEDLES THROUGH EYELIDS.
+
+KALAIARASAN.R
+
+Born on 21-05-2000 from Coimbator Chennai, Tamil Nadu, India. He has created a new WORLD RECORD BY PICKING 18,200 NEEDLES THROUGH EYELIDS and also without lifting there KARAGAM on his head. And set a new world record on November 23rd, 2019.
+
+Venue: Vijay Park Hotel, Arumbakkam, Chennai.
+</div>
+            <ul class="simple-list">${f.awards.map(a=>`<li><strong>${esc(a.title)}</strong> <span style="color:var(--ink-faint)">(${esc(a.year)})</span><br><span style="color:var(--ink-soft);font-size:13px;">${esc(a.desc)}</span></li>`).join('')}</ul>
+
+            <div class="block-title">1.Amb.Dr.R.kalaiarasan1000 steel blades picked up by eyelids simultaneously karagam dance
+
+1st November 2020.
+
+2. 3 hours continuously non stop karagam dance on the glass pieces.
+
+3. 2 hours nonstop Karuppasamy aattam on the glass pieces.</div>
+            <ul class="simple-list">${f.achievements.map(a=>`<li><strong>${esc(a.title)}</strong> <span style="color:var(--ink-faint)">(${esc(a.year)})</span><br><span style="color:var(--ink-soft);font-size:13px;">${esc(a.desc)}</span></li>`).join('')}</ul>
+
+            <div class="block-title">1.WHILE DANCING KARAGATTAM PREDOMINANT PICK OF 18,200 NEEDLES THROUGH EYELIDS.
+
+KALAIARASAN.R
+
+Born on 21-05-2000 from Coimbator Chennai, Tamil Nadu, India. He has created a new WORLD RECORD BY PICKING 18,200 NEEDLES THROUGH EYELIDS and also without lifting there KARAGAM on his head. And set a new world record on November 23rd, 2019.
+
+Venue: Vijay Park Hotel, Arumbakkam, Chennai.
+
+2.1000 folk Parai artist an single stage for 60 minutes
+
+Giramiyaputhalvan kalaikuzhu he has set a tremendous record by performing 1000 folk Parai artist an a given composed music to make the logo form of Parai under the guidence of Giramiya puthalvan Amb.Dr.R.kalaiarasan continuously playing Parai nonstop for one hour.
+
+Venue :kathir arts and science college
+
+Date: 28-12-2019
+
+Coimbatore.
+
+3.Amb.Dr.R.kalaiarasan born on 21-05-2000 has created a new world record by dancing traditional dummy horse dance by performing 3 hours and also without lifting the karagam (fire) on his head, and set a new world record
+
+Mar 02 2020
+
+Venue siddhaputhur Coimbatore Tamilnadu.</div>
+            <ul class="simple-list">${f.records.map(r=>`<li><strong>${esc(r.title)}</strong> <span style="color:var(--ink-faint)">(${esc(r.year)})</span><br><span style="color:var(--ink-soft);font-size:13px;">${esc(r.desc)}</span></li>`).join('')}</ul>
+          </div>
+        </div>
+
+        <div class="block-title">"28-12-2019",
+          "02-03-2020",
+          "01-11-2020".</div>
+        <div class="timeline">${f.timeline.map(t=>`<div class="timeline-item"><div class="ti-title">${esc(t.year)}</div><div class="ti-desc">${esc(t.text)}</div></div>`).join('')}</div>
+      </div>
+
+      <div id="aboutEdit" style="display:none;"></div>
+    </div>
+  </section>`;
+}
+
+/* ================= CONTACT ================= */
+function pageContact(){
+  const f = DB.founder;
+  return `
+  <section class="section">
+    <div class="container">
+      <div class="eyebrow">Get in touch</div>
+      <h2 style="margin-bottom:30px;">Contact PhoenixPedia</h2>
+      <div class="two-col-section">
+        <div class="card" style="padding:34px;">
+          <h3 style="font-size:19px;margin-bottom:6px;">Send a message</h3>
+          <p style="font-size:13.5px;">We typically reply within two business days.</p>
+          <form id="contactForm">
+            <div class="field"><label>Full name</label><input class="input" name="name" required placeholder="Your name"></div>
+            <div class="field"><label>Email address</label><input class="input" type="email" name="email" required placeholder="you@example.com"></div>
+            <div class="field"><label>Subject</label><input class="input" name="subject" required placeholder="What is this about?"></div>
+            <div class="field"><label>Message</label><textarea class="textarea" name="message" required placeholder="Write your message..."></textarea></div>
+            <button class="btn btn-primary btn-block" type="submit">Send message</button>
+          </form>
+        </div>
+        <div>
+          <div class="card" style="padding:34px;margin-bottom:22px;">
+            <h3 style="font-size:19px;margin-bottom:16px;">Founder contact details</h3>
+            <div class="contact-card"><div class="ic">${ICON.mail}</div><div><strong>Phoenixpedia2026@gmail.com</strong><div style="color:var(--ink-soft);font-size:13.5px;">${esc(f.contact.email)}</div></div></div>
+            <div class="contact-card"><div class="ic">${ICON.phone}</div><div><strong>+91 91591 64050</strong><div style="color:var(--ink-soft);font-size:13.5px;">${esc(f.contact.phone)}</div></div></div>
+            <div class="contact-card"><div class="ic">${ICON.pin}</div><div><strong>3/33 visalatchi avenue vellantheru kambarasampettai Trichy 620101</strong><div style="color:var(--ink-soft);font-size:13.5px;">${esc(f.contact.address)}</div></div></div>
+          </div>
+          <div class="card" style="padding:34px;">
+            <h3 style="font-size:19px;margin-bottom:14px;">Follow</h3>
+            <div class="social-row">
+              ${f.social.instagram?`<a class="https://www.instagram.com/biggboss_kalaiyarasan_official?stkn=cTU1MHNycnBoMXk1" href="${esc(f.social.instagram)}" target="_blank">${ICON.insta} Instagram</a>`:''}
+              ${f.social.youtube?`<a class="https://youtube.com/@biggboss_kalaiyarasan?si=j-LA98_FLbWmPIwG" href="${esc(f.social.youtube)}" target="_blank">${ICON.yt} YouTube</a>`:''}
+              ${f.social.facebook?`<a class="https://www.facebook.com/share/1BnW2Canuz/" href="${esc(f.social.facebook)}" target="_blank">${ICON.fb} Facebook</a>`:''}
+              ${f.social.snapchat?`<a class="https://www.snapchat.com/add/bbkalaiyarasan?share_id=XSXYGvJIzc8&locale=en-IN" href="${esc(f.social.snapchat)}" target="_blank">${ICON.sc} Snapchat</a>`:''}
+              ${f.social.whatsapp?`<a class="https://wa.me/919159164050" href="${esc(f.social.whatsapp)}" target="_blank">${ICON.wa} WhatsApp</a>`:''}
+
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>`;
+}
+
+/* ================= LOGIN / REGISTER ================= */
+function pageLogin(){
+  return `
+  <div class="auth-wrap">
+    <div class="auth-card">
+      <h2>Welcome back</h2>
+      <p class="auth-sub">Log in to manage your PhoenixPedia profile.</p>
+      <div id="loginError"></div>
+      <form id="loginForm">
+        <div class="field"><label>Username</label><input class="input" name="username" required placeholder="Your username"></div>
+        <div class="field"><label>Password</label><input class="input" type="password" name="password" required placeholder="Your password"></div>
+        <button class="btn btn-primary btn-block" type="submit">Log in</button>
+      </form>
+      <div class="auth-switch">New here? <a href="#/register">Create an admin account</a></div>
+      <div class="demo-hint">Demo founder login — username: <strong>founder</strong> · password: <strong>phoenix2026</strong></div>
+    </div>
+  </div>`;
+}
+function pageRegister(){
+  return `
+  <div class="auth-wrap">
+    <div class="auth-card">
+      <h2>Create admin account</h2>
+      <p class="auth-sub">Register to build and publish your public profile.</p>
+      <div id="regError"></div>
+      <form id="registerForm">
+        <div class="field"><label>Username</label><input class="input" name="username" required placeholder="Choose a username"></div>
+        <div class="field"><label>Email address</label><input class="input" type="email" name="email" required placeholder="you@example.com"></div>
+        <div class="field"><label>Password</label><input class="input" type="password" name="password" required placeholder="Create a password" minlength="4"></div>
+        <button class="btn btn-primary btn-block" type="submit">Create account &amp; continue</button>
+      </form>
+      <div class="auth-switch">Already registered? <a href="#/login">Log in</a></div>
+    </div>
+  </div>`;
+}
+
+/* ================= DASHBOARD ================= */
+function pageDashboard(){
+  const u = currentUser();
+  const p = userProfile(u.id);
+  const isPublished = p && p.published;
+  return `
+  <section class="section">
+    <div class="container">
+      <div class="dash-head">
+        <div>
+          <div class="eyebrow">Dashboard</div>
+          <h2 style="margin-bottom:4px;">Hello, ${esc(u.username)}</h2>
+          <div class="dash-welcome">${u.isFounder? 'Founder account — you can also edit the About page.' : 'Manage your public profile below.'}</div>
+        </div>
+        ${p? `<span class="status-pill ${isPublished?'status-live':'status-draft'}">${isPublished? ICON.check+' Live': '● Draft — not published'}</span>`:''}
+      </div>
+
+      <div class="dash-grid">
+        <div class="dash-panel">
+          <h3 style="font-size:18px;">Your profile</h3>
+          ${p? `
+            <div class="pc-top" style="margin-top:14px;">
+              <div class="pc-photo"><img src="${p.photo||avatarSVG(p.fullName)}" alt="${esc(p.fullName)}, ${esc(p.profession)}. A professional portrait in the dashboard profile panel with a calm, formal tone."></div>
+              <div>
+                <div class="pc-name-row"><span class="pc-name">${esc(p.fullName)}</span>${badgeIcon(p.verification)}</div>
+                <div class="pc-profession">${esc(p.profession)}</div>
+              </div>
+            </div>
+            <div class="mini-stat-row">
+              <div class="mini-stat"><b>${fmtNum(p.views)}</b><span>Views</span></div>
+              <div class="mini-stat"><b>${fmtNum(p.likes)}</b><span>Likes</span></div>
+              <div class="mini-stat"><b>${p.verification==='none'?'—':p.verification.toUpperCase()}</b><span>Verification</span></div>
+            </div>
+          ` : `<div class="empty-note" style="margin-top:16px;">You haven't created a profile yet. Start the step-by-step wizard to publish your biography.</div>`}
+
+          <div class="action-grid">
+            <button class="action-btn" data-action="create" ${p?'disabled':''}>
+              <span class="ic">${ICON.plus}</span><span class="txt"><strong>Create profile</strong><span>Start the profile wizard</span></span>
+            </button>
+            <button class="action-btn" data-action="edit" ${p?'':'disabled'}>
+              <span class="ic">${ICON.edit}</span><span class="txt"><strong>Edit profile</strong><span>Update your details</span></span>
+            </button>
+            <button class="action-btn" data-action="preview" ${p?'':'disabled'}>
+              <span class="ic">${ICON.preview}</span><span class="txt"><strong>Preview profile</strong><span>See your public page</span></span>
+            </button>
+            <button class="action-btn" data-action="verify" ${p?'':'disabled'}>
+              <span class="ic">${ICON.shield}</span><span class="txt"><strong>Verify profile</strong><span>${isPublished? 'Manage verification':'Get verified & publish'}</span></span>
+            </button>
+            <button class="action-btn" data-action="delete" ${p?'':'disabled'}>
+              <span class="ic">${ICON.trash}</span><span class="txt"><strong>Delete profile</strong><span>Remove permanently</span></span>
+            </button>
+            <button class="action-btn" data-action="logout">
+              <span class="ic">${ICON.logout}</span><span class="txt"><strong>Logout</strong><span>End your session</span></span>
+            </button>
+          </div>
+        </div>
+
+        <div class="dash-panel">
+          <h3 style="font-size:18px;">Getting verified</h3>
+          <p style="font-size:13.5px;">Verification unlocks publishing. Choose Normal, Blue, or VIP Gold depending on the recognition you want.</p>
+          <ul class="plan-features" style="margin-top:16px;">
+            <li>${ICON.check} Normal — ₹500, teal check badge</li>
+            <li>${ICON.check} Blue — ₹5,000, priority placement</li>
+            <li>${ICON.check} VIP Gold — ₹10,000, crown badge + featured</li>
+          </ul>
+          <a href="#" class="btn btn-outline btn-block" data-action="verify" ${p?'':'disabled'}>Go to verification</a>
+          ${u.isFounder? `<div style="margin-top:26px;padding-top:22px;border-top:1px solid var(--line);"><h3 style="font-size:15px;">Founder tools</h3><a href="#/about" class="btn btn-dark btn-sm">Edit About page</a></div>`:''}
+        </div>
+      </div>
+    </div>
+  </section>`;
+}
+
+/* ================= WIZARD ================= */
+const WIZ_STEPS = ['Basic info','Biography','Education','Career','Achievements','Awards & records','Social links','Preview'];
+let wizardState = null;
+function blankWizardState(){
+  return { fullName:'', photo:'', birthdate:'', profession:'', bio:'', education:[], career:[], achievements:[], awards:[], records:[],
+    social:{instagram:'',facebook:'',twitter:'',whatsapp:'',email:''} };
+}
+function pageWizard(query){
+  const step = Math.min(Math.max(parseInt(query.step||'1',10),1), WIZ_STEPS.length);
+  const u = currentUser();
+  if(!wizardState){
+    const existing = userProfile(u.id);
+    wizardState = existing ? JSON.parse(JSON.stringify(existing)) : blankWizardState();
+  }
+  const dots = WIZ_STEPS.map((_,i)=>`<div class="step-dot ${i+1<step?'done':i+1===step?'active':''}"></div>`).join('');
+  return `
+  <section class="section">
+    <div class="container wizard-shell">
+      <div class="step-label">Step ${step} of ${WIZ_STEPS.length} — ${WIZ_STEPS[step-1]}</div>
+      <div class="stepper">${dots}</div>
+      <div class="wizard-card">
+        <div id="wizStepBody">${wizardStepBody(step)}</div>
+        <div class="wizard-nav">
+          <button class="btn btn-outline" id="wizBack" ${step===1?'disabled':''}>Back</button>
+          <div style="display:flex;gap:10px;">
+            ${step===WIZ_STEPS.length? `<button class="btn btn-primary" id="wizSave">${ICON.check} Save profile</button>` : `<button class="btn btn-primary" id="wizNext">Continue ${ICON.arrowR}</button>`}
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>`;
+}
+function repeaterRow(fields, values, idx, prefix){
+  return `<div class="repeat-row" data-idx="${idx}">
+    <button type="button" class="rm-btn" data-remove="${idx}">${ICON.close}</button>
+    ${fields.map(f=>`<div class="field" style="margin-bottom:10px;"><label>${f.label}</label>
+      ${f.type==='textarea'? `<textarea class="textarea" data-field="${prefix}.${idx}.${f.key}" rows="2">${esc(values[f.key]||'')}</textarea>`
+      : `<input class="input" data-field="${prefix}.${idx}.${f.key}" value="${esc(values[f.key]||'')}" placeholder="${f.ph||''}">`}
+    </div>`).join('')}
+  </div>`;
+}
+function wizardStepBody(step){
+  const w = wizardState;
+  if(step===1){
+    const photo = w.photo || (w.fullName? avatarSVG(w.fullName): '');
+    return `
+    <h3>Basic information</h3>
+    <p style="font-size:13.5px;">This appears at the top of your public profile.</p>
+    <div class="field"><label>Profile photo</label>
+      <div class="photo-upload">
+        <div class="photo-preview">${photo?`<img src="${photo}" id="photoPreviewImg" alt="${esc(w.fullName||'Profile subject')}, profile photo preview. A square portrait shown in the upload area with a neutral, professional tone.">`:`<div id="photoPreviewImg" style="width:100%;height:100%;"></div>`}</div>
+        <div><input type="file" id="photoInput" accept="image/*" style="display:none;"><button type="button" class="btn btn-outline btn-sm" id="photoBtn">${ICON.upload} Upload photo</button><div class="hint">Square image recommended, JPG or PNG.</div></div>
+      </div>
+    </div>
+    <div class="field"><label>Full name</label><input class="input" id="f_fullName" value="${esc(w.fullName)}" placeholder="e.g. Ishaan Kapoor"></div>
+    <div class="two-col">
+      <div class="field"><label>Birthdate</label><input class="input" type="date" id="f_birthdate" value="${esc(w.birthdate)}"></div>
+      <div class="field"><label>Profession</label><input class="input" id="f_profession" value="${esc(w.profession)}" placeholder="e.g. Classical Vocalist"></div>
+    </div>`;
+  }
+  if(step===2){
+    return `
+    <h3>Biography</h3>
+    <p style="font-size:13.5px;">Write a rich, encyclopedia-style biography. Use the toolbar to format.</p>
+    <div class="rt-toolbar">
+      <button type="button" data-cmd="bold" title="Bold"><b>B</b></button>
+      <button type="button" data-cmd="italic" title="Italic"><i>I</i></button>
+      <button type="button" data-cmd="underline" title="Underline"><u>U</u></button>
+      <button type="button" data-cmd="insertUnorderedList" title="Bullet list">•</button>
+      <button type="button" data-cmd="formatBlock" data-val="H3" title="Heading">H</button>
+      <button type="button" data-cmd="formatBlock" data-val="P" title="Paragraph">¶</button>
+    </div>
+    <div class="rt-editor" id="bioEditor" contenteditable="true">${w.bio || '<p>Start writing this person\'s biography...</p>'}</div>`;
+  }
+  if(step===3){
+    return `<h3>Education</h3><p style="font-size:13.5px;">Add every qualification, most recent first.</p>
+    <div id="repList">${w.education.map((e,i)=>repeaterRow([{key:'degree',label:'Degree / qualification',ph:'e.g. B.A. Economics'},{key:'institution',label:'Institution',ph:'e.g. Delhi University'},{key:'year',label:'Year',ph:'e.g. 2016'}],e,i,'education')).join('')}</div>
+    <button type="button" class="add-row-btn" id="addRow" data-kind="education">${ICON.plus} Add education</button>`;
+  }
+  if(step===4){
+    return `<h3>Career</h3><p style="font-size:13.5px;">Roles, in order.</p>
+    <div id="repList">${w.career.map((e,i)=>repeaterRow([{key:'role',label:'Role / title',ph:'e.g. Lead Designer'},{key:'org',label:'Organization',ph:'e.g. Acme Studio'},{key:'start',label:'Start year',ph:'2019'},{key:'end',label:'End year',ph:'Present'},{key:'desc',label:'Description',type:'textarea',ph:'What did they do?'}],e,i,'career')).join('')}</div>
+    <button type="button" class="add-row-btn" id="addRow" data-kind="career">${ICON.plus} Add career entry</button>`;
+  }
+  if(step===5){
+    return `<h3>Achievements</h3><p style="font-size:13.5px;">Milestones and notable accomplishments.</p>
+    <div id="repList">${w.achievements.map((e,i)=>repeaterRow([{key:'title',label:'Achievement',ph:'e.g. 1M+ listeners'},{key:'year',label:'Year',ph:'2023'},{key:'desc',label:'Description',type:'textarea',ph:'Details (optional)'}],e,i,'achievements')).join('')}</div>
+    <button type="button" class="add-row-btn" id="addRow" data-kind="achievements">${ICON.plus} Add achievement</button>`;
+  }
+  if(step===6){
+    return `<h3>Awards &amp; records</h3><p style="font-size:13.5px;">Formal awards, and any national or world records.</p>
+    <div class="block-title" style="margin-top:0;">Awards</div>
+    <div id="repListAwards">${w.awards.map((e,i)=>repeaterRow([{key:'title',label:'Award',ph:'e.g. National Film Award'},{key:'year',label:'Year',ph:'2022'},{key:'desc',label:'Description',type:'textarea',ph:'Details (optional)'}],e,i,'awards')).join('')}</div>
+    <button type="button" class="add-row-btn" id="addRowAwards" data-kind="awards">${ICON.plus} Add award</button>
+    <div class="block-title">Records</div>
+    <div id="repListRecords">${w.records.map((e,i)=>repeaterRow([{key:'title',label:'Record',ph:'e.g. National record — 100m'},{key:'year',label:'Year',ph:'2023'},{key:'desc',label:'Description',type:'textarea',ph:'Details (optional)'}],e,i,'records')).join('')}</div>
+    <button type="button" class="add-row-btn" id="addRowRecords" data-kind="records">${ICON.plus} Add record</button>`;
+  }
+  if(step===7){
+    return `<h3>Social links</h3><p style="font-size:13.5px;">Shown as chips on the public profile page.</p>
+    <div class="field"><label>Instagram URL</label><input class="input" id="s_instagram" value="${esc(w.social.instagram)}" placeholder="https://instagram.com/..."></div>
+    <div class="field"><label>Facebook URL</label><input class="input" id="s_facebook" value="${esc(w.social.facebook)}" placeholder="https://facebook.com/..."></div>
+    <div class="field"><label>Twitter / X URL</label><input class="input" id="s_twitter" value="${esc(w.social.twitter)}" placeholder="https://x.com/..."></div>
+    <div class="field"><label>WhatsApp link</label><input class="input" id="s_whatsapp" value="${esc(w.social.whatsapp)}" placeholder="https://wa.me/91XXXXXXXXXX"></div>
+    <div class="field"><label>Contact email</label><input class="input" id="s_email" value="${esc(w.social.email)}" placeholder="name@example.com"></div>`;
+  }
+  if(step===8){
+    const photo = w.photo || avatarSVG(w.fullName||'?');
+    return `<h3>Preview</h3><p style="font-size:13.5px;">This is how your profile will look once verified &amp; published.</p>
+    <div class="card" style="padding:20px;">
+      <div class="pc-top">
+        <div class="pc-photo"><img src="${photo}" alt="${esc(w.fullName||'Profile subject')}, ${esc(w.profession||'professional')} profile preview. A portrait displayed in a biography preview card with a calm, formal tone."></div>
+        <div><div class="pc-name-row"><span class="pc-name">${esc(w.fullName||'Your name')}</span></div><div class="pc-profession">${esc(w.profession||'Your profession')}</div></div>
+      </div>
+      <div class="prose" style="margin-top:14px;font-size:14px;">${w.bio||'<p>Your biography preview...</p>'}</div>
+      <div style="margin-top:10px;font-size:12.5px;color:var(--ink-faint);">${w.education.length} education · ${w.career.length} career · ${w.achievements.length} achievements · ${w.awards.length} awards · ${w.records.length} records</div>
+    </div>`;
+  }
+  return '';
+}
+function collectStepIntoState(step){
+  const w = wizardState;
+  if(step===1){
+    w.fullName = document.getElementById('f_fullName').value.trim();
+    w.birthdate = document.getElementById('f_birthdate').value;
+    w.profession = document.getElementById('f_profession').value.trim();
+  } else if(step===2){
+    w.bio = document.getElementById('bioEditor').innerHTML;
+  } else if(step===7){
+    w.social.instagram = document.getElementById('s_instagram').value.trim();
+    w.social.facebook = document.getElementById('s_facebook').value.trim();
+    w.social.twitter = document.getElementById('s_twitter').value.trim();
+    w.social.whatsapp = document.getElementById('s_whatsapp').value.trim();
+    w.social.email = document.getElementById('s_email').value.trim();
+  }
+  // repeater steps (3,4,5,6) sync live via input listeners, nothing to collect here
+}
+function bindWizardEvents(step){
+  const back = document.getElementById('wizBack');
+  const next = document.getElementById('wizNext');
+  const save = document.getElementById('wizSave');
+  if(back) back.onclick = ()=>{ collectStepIntoState(step); go(`#/wizard?step=${step-1}`); };
+  if(next) next.onclick = ()=>{
+    if(step===1){
+      const name=document.getElementById('f_fullName').value.trim();
+      const prof=document.getElementById('f_profession').value.trim();
+      if(!name || !prof){ toast('Please fill in full name and profession.'); return; }
+    }
+    collectStepIntoState(step);
+    go(`#/wizard?step=${step+1}`);
+  };
+  if(save) save.onclick = async ()=>{
+    collectStepIntoState(step);
+    await persistWizardProfile();
+  };
+
+  if(step===1){
+    const btn=document.getElementById('photoBtn'), input=document.getElementById('photoInput');
+    if(btn) btn.onclick = ()=>input.click();
+    if(input) input.onchange = async ()=>{
+      if(input.files && input.files[0]){
+        const dataUrl = await resizeImage(input.files[0]);
+        wizardState.photo = dataUrl;
+        document.getElementById('photoPreviewImg').outerHTML = `<img src="${dataUrl}" id="photoPreviewImg">`;
+      }
+    };
+  }
+  if(step===2){
+    document.querySelectorAll('.rt-toolbar button').forEach(b=>{
+      b.onclick = ()=>{
+        document.getElementById('bioEditor').focus();
+        document.execCommand(b.dataset.cmd, false, b.dataset.val||null);
+      };
+    });
+  }
+  if(step>=3 && step<=6){
+    bindRepeater(step);
+  }
+}
+function repeaterConfigForStep(step){
+  if(step===3) return [{kind:'education', listId:'repList', addId:'addRow'}];
+  if(step===4) return [{kind:'career', listId:'repList', addId:'addRow'}];
+  if(step===5) return [{kind:'achievements', listId:'repList', addId:'addRow'}];
+  if(step===6) return [{kind:'awards', listId:'repListAwards', addId:'addRowAwards'},{kind:'records', listId:'repListRecords', addId:'addRowRecords'}];
+  return [];
+}
+const FIELD_DEFS = {
+  education:[{key:'degree'},{key:'institution'},{key:'year'}],
+  career:[{key:'role'},{key:'org'},{key:'start'},{key:'end'},{key:'desc'}],
+  achievements:[{key:'title'},{key:'year'},{key:'desc'}],
+  awards:[{key:'title'},{key:'year'},{key:'desc'}],
+  records:[{key:'title'},{key:'year'},{key:'desc'}]
+};
+function bindRepeater(step){
+  const configs = repeaterConfigForStep(step);
+  configs.forEach(cfg=>{
+    const rerender = ()=>{
+      const wrap = document.getElementById(cfg.listId);
+      const fieldsMeta = {
+        education:[{key:'degree',label:'Degree / qualification'},{key:'institution',label:'Institution'},{key:'year',label:'Year'}],
+        career:[{key:'role',label:'Role / title'},{key:'org',label:'Organization'},{key:'start',label:'Start year'},{key:'end',label:'End year'},{key:'desc',label:'Description',type:'textarea'}],
+        achievements:[{key:'title',label:'Achievement'},{key:'year',label:'Year'},{key:'desc',label:'Description',type:'textarea'}],
+        awards:[{key:'title',label:'Award'},{key:'year',label:'Year'},{key:'desc',label:'Description',type:'textarea'}],
+        records:[{key:'title',label:'Record'},{key:'year',label:'Year'},{key:'desc',label:'Description',type:'textarea'}]
+      }[cfg.kind];
+      wrap.innerHTML = wizardState[cfg.kind].map((v,i)=>repeaterRow(fieldsMeta, v, i, cfg.kind)).join('');
+      wrap.querySelectorAll('[data-field]').forEach(inp=>{
+        inp.oninput = ()=>{
+          const [kind, idx, key] = inp.dataset.field.split('.');
+          wizardState[kind][idx][key] = inp.value;
+        };
+      });
+      wrap.querySelectorAll('[data-remove]').forEach(btn=>{
+        btn.onclick = ()=>{ wizardState[cfg.kind].splice(parseInt(btn.dataset.remove,10),1); rerender(); };
+      });
+    };
+    document.getElementById(cfg.addId).onclick = ()=>{
+      wizardState[cfg.kind].push({});
+      rerender();
+    };
+    rerender();
+  });
+}
+async function persistWizardProfile(){
+  const u = currentUser();
+  const w = wizardState;
+  if(!w.fullName || !w.profession){ toast('Please complete the required fields.'); go('#/wizard?step=1'); return; }
+  let p = userProfile(u.id);
+  if(p){
+    Object.assign(p, { fullName:w.fullName, photo:w.photo, birthdate:w.birthdate, profession:w.profession, bio:w.bio,
+      education:w.education, career:w.career, achievements:w.achievements, awards:w.awards, records:w.records, social:w.social });
+  } else {
+    p = { id:uid(), ownerId:u.id, fullName:w.fullName, photo:w.photo, birthdate:w.birthdate, profession:w.profession, bio:w.bio,
+      education:w.education, career:w.career, achievements:w.achievements, awards:w.awards, records:w.records, social:w.social,
+      verification:'none', published:false, views:0, likes:0, publishDate:null, createdAt:new Date().toISOString() };
+    DB.profiles.push(p);
+  }
+  await saveProfiles();
+  wizardState = null;
+  toast('Profile saved.');
+  go('#/dashboard');
+}
+
+/* ================= PUBLIC PROFILE PAGE ================= */
+async function bumpViews(p){
+  p.views = (p.views||0) + 1;
+  await saveProfiles();
+}
+function pageProfile(id){
+  const p = DB.profiles.find(x=>x.id===id);
+  if(!p) return page404();
+  const photo = p.photo || avatarSVG(p.fullName);
+  const age = p.birthdate ? Math.max(0, new Date().getFullYear() - new Date(p.birthdate).getFullYear()) : null;
+  return `
+  <section class="profile-hero">
+    <div class="container profile-hero-inner">
+      <div class="profile-photo-lg"><img src="${photo}" alt="${esc(p.fullName)}, ${esc(p.profession)}. A formal portrait displayed in the dark profile header with a calm, professional tone."></div>
+      <div>
+        <div class="pc-name-row" style="margin-bottom:6px;"><h1>${esc(p.fullName)}</h1>${badgeIcon(p.verification)}</div>
+        <div class="prof">${esc(p.profession)}</div>
+        <div class="hero-tags">
+          ${age!==null? `<span>${ICON.cal} ${age} years old</span>`:''}
+          <span>${ICON.eye} ${fmtNum(p.views)} views</span>
+          <span>${ICON.heart} ${fmtNum(p.likes)} likes</span>
+          <span>${ICON.cal} Published ${fmtDate(p.publishDate)}</span>
+        </div>
+      </div>
+    </div>
+  </section>
+  <div class="container">
+    <div class="profile-body">
+      <div class="like-row">
+        <button class="like-btn" id="likeBtn" data-id="${p.id}">${ICON.heart} <span id="likeCount">${fmtNum(p.likes)}</span> Like</button>
+        <a class="share-btn" href="${p.social.instagram||'#'}" target="_blank" title="Instagram">${ICON.insta}</a>
+        <a class="share-btn" href="${p.social.facebook||'#'}" target="_blank" title="Facebook">${ICON.fb}</a>
+        <a class="share-btn" href="${p.social.twitter||'#'}" target="_blank" title="Twitter/X">${ICON.x}</a>
+        <a class="share-btn" href="${p.social.whatsapp||'#'}" target="_blank" title="WhatsApp">${ICON.wa}</a>
+        <a class="share-btn" href="${p.social.email?('mailto:'+p.social.email):'#'}" title="Email">${ICON.mail}</a>
+      </div>
+
+      <div class="prose">${p.bio||''}</div>
+
+      ${p.education.length? `<div class="block-title">Education</div><ul class="simple-list">${p.education.map(e=>`<li><strong>${esc(e.degree)}</strong> — ${esc(e.institution)} <span style="color:var(--ink-faint)">(${esc(e.year)})</span></li>`).join('')}</ul>`:''}
+
+      ${p.career.length? `<div class="block-title">Career</div><div class="timeline">${p.career.map(c=>`<div class="timeline-item"><div class="ti-title">${esc(c.role)}, ${esc(c.org)}</div><div class="ti-meta">${esc(c.start)} — ${esc(c.end)}</div><div class="ti-desc">${esc(c.desc)}</div></div>`).join('')}</div>`:''}
+
+      ${p.achievements.length? `<div class="block-title">Achievements</div><div class="timeline">${p.achievements.map(a=>`<div class="timeline-item"><div class="ti-title">${esc(a.title)}</div><div class="ti-meta">${esc(a.year)}</div><div class="ti-desc">${esc(a.desc)}</div></div>`).join('')}</div>`:''}
+
+      ${p.awards.length? `<div class="block-title">Awards</div><div class="timeline">${p.awards.map(a=>`<div class="timeline-item"><div class="ti-title">${esc(a.title)}</div><div class="ti-meta">${esc(a.year)}</div><div class="ti-desc">${esc(a.desc)}</div></div>`).join('')}</div>`:''}
+
+      ${p.records.length? `<div class="block-title">Records</div><div class="timeline">${p.records.map(r=>`<div class="timeline-item"><div class="ti-title">${esc(r.title)}</div><div class="ti-meta">${esc(r.year)}</div><div class="ti-desc">${esc(r.desc)}</div></div>`).join('')}</div>`:''}
+
+      <div class="block-title">Connect</div>
+      <div class="social-row">
+        ${p.social.instagram?`<a class="social-chip" href="${esc(p.social.instagram)}" target="_blank">${ICON.insta} Instagram</a>`:''}
+        ${p.social.facebook?`<a class="social-chip" href="${esc(p.social.facebook)}" target="_blank">${ICON.fb} Facebook</a>`:''}
+        ${p.social.twitter?`<a class="social-chip" href="${esc(p.social.twitter)}" target="_blank">${ICON.x} X</a>`:''}
+        ${p.social.whatsapp?`<a class="social-chip" href="${esc(p.social.whatsapp)}" target="_blank">${ICON.wa} WhatsApp</a>`:''}
+        ${p.social.email?`<a class="social-chip" href="mailto:${esc(p.social.email)}">${ICON.mail} Email</a>`:''}
+      </div>
+    </div>
+  </div>
+  <div style="height:70px;"></div>`;
+}
+
+/* ================= VERIFY / PAYMENT ================= */
+const PLANS = {
+  normal:{ name:'Normal Verification', price:2500, tier:'normal', color:'var(--pine)', bg:'var(--pine-soft)',
+    features:['Verified check badge','Appears in search results','Basic profile analytics'] },
+  blue:{ name:'Blue Verification', price:5000, tier:'blue', color:'var(--azure)', bg:'var(--azure-soft)',
+    features:['Blue check badge','Priority placement in listings','Advanced analytics','Faster review (24h)'] },
+  vip:{ name:'VIP Gold Verification', price:10000, tier:'vip', color:'var(--gold)', bg:'var(--gold-soft)',
+    features:['Gold crown badge','Featured on homepage','Dedicated review specialist','Premium support'] }
+};
+function pageVerify(query){
+  const u = currentUser();
+  const p = userProfile(u.id);
+  if(!p){ go('#/wizard?step=1'); return ''; }
+  const stage = query.stage || 'plans';
+  if(stage==='processing'){
+    const plan = PLANS[query.plan] || PLANS.normal;
+    return `
+    <section class="section"><div class="container pay-screen">
+      <div class="spinner"></div>
+      <h3>Processing your payment…</h3>
+      <p style="font-size:13.5px;">Confirming ₹${plan.price.toLocaleString('en-IN')} for ${plan.name}. Do not close this window.</p>
+      <div class="pill-note">Payment gateway placeholder — connect Razorpay / Stripe here</div>
+    </div></section>`;
+  }
+  if(stage==='success'){
+    const plan = PLANS[query.plan] || PLANS.normal;
+    const confetti = Array.from({length:26}).map((_,i)=>{
+      const colors=['#BE7F27','#20493F','#2B5A88','#A6791C','#E9C382'];
+      const left = Math.random()*100;
+      const delay = (Math.random()*0.6).toFixed(2);
+      const color = colors[i%colors.length];
+      return `<div class="confetti-piece" style="left:${left}%;background:${color};animation-delay:${delay}s;"></div>`;
+    }).join('');
+    return `
+    <section class="section"><div class="container success-screen">
+      ${confetti}
+      <div class="success-icon">${ICON.checkFill}</div>
+      <h2>Verification completed successfully!</h2>
+      <p>${plan.name} is now applied to <strong>${esc(p.fullName)}</strong>'s profile. Publish it to make it live on PhoenixPedia.</p>
+      <button class="btn btn-primary" id="publishBtn" style="margin-top:10px;">${ICON.bolt} Publish profile</button>
+    </div></section>`;
+  }
+  // plans stage
+  return `
+  <section class="section"><div class="container">
+    <div class="eyebrow">Verification</div>
+    <h2 style="margin-bottom:8px;">Get ${esc(p.fullName)}'s profile verified</h2>
+    <p style="max-width:560px;margin-bottom:36px;">Choose a verification tier. Your profile publishes automatically right after verification completes.</p>
+    <div class="plans-grid">
+      ${Object.values(PLANS).map(plan=>`
+        <div class="plan-card ${plan.tier==='vip'?'featured':''}">
+          ${plan.tier==='vip'?'<div class="plan-tag">Most prestige</div>':''}
+          <div class="plan-icon" style="background:${plan.bg};color:${plan.color};">${plan.tier==='vip'?ICON.crown:ICON.checkFill}</div>
+          <h3 style="font-size:18px;">${plan.name}</h3>
+          <div class="plan-price">₹${plan.price.toLocaleString('en-IN')} <span>one-time</span></div>
+          <ul class="plan-features">${plan.features.map(f=>`<li>${ICON.check} ${f}</li>`).join('')}</ul>
+          <button class="btn ${plan.tier==='vip'?'btn-primary':'btn-outline'} btn-block" data-pay="${plan.tier}">Pay ₹${plan.price.toLocaleString('en-IN')}</button>
+        </div>`).join('')}
+    </div>
+  </div></section>`;
+}
+
+/* ================= 404 ================= */
+function page404(){
+  return `<section class="section"><div class="container" style="text-align:center;padding:80px 0;">
+    <h2>Page not found</h2><p>That page doesn't exist.</p><a href="#/" class="btn btn-primary">Back to home</a>
+  </div></section>`;
+}
+
+/* ================= PER-PAGE BEHAVIOUR ================= */
+function afterRender(root, query, parts){
+  if(root===''){
+    const form = document.getElementById('homeSearch');
+    if(form) form.onsubmit = e=>{ e.preventDefault(); const q=form.q.value.trim(); go('#/'+(q?`?q=${encodeURIComponent(q)}`:'')); };
+  }
+
+  if(root==='login'){
+    const form = document.getElementById('loginForm');
+    form.onsubmit = async e=>{
+      e.preventDefault();
+      const username = form.username.value.trim();
+      const password = form.password.value;
+      const u = DB.users.find(x=>x.username.toLowerCase()===username.toLowerCase() && x.password===password);
+      if(!u){
+        document.getElementById('loginError').innerHTML = `<div class="error-box">Incorrect username or password.</div>`;
+        return;
+      }
+      DB.session = { userId:u.id };
+      await saveSession();
+      toast(`Welcome back, ${u.username}.`);
+      go('#/dashboard');
+    };
+  }
+
+  if(root==='register'){
+    const form = document.getElementById('registerForm');
+    form.onsubmit = async e=>{
+      e.preventDefault();
+      const username = form.username.value.trim();
+      const email = form.email.value.trim();
+      const password = form.password.value;
+      if(DB.users.find(x=>x.username.toLowerCase()===username.toLowerCase())){
+        document.getElementById('regError').innerHTML = `<div class="error-box">That username is already taken.</div>`;
+        return;
+      }
+      const newUser = { id:uid(), username, email, password, isFounder:false, createdAt:new Date().toISOString() };
+      DB.users.push(newUser);
+      await saveUsers();
+      DB.session = { userId:newUser.id };
+      await saveSession();
+      toast('Account created!');
+      wizardState = null;
+      go('#/wizard?step=1');
+    };
+  }
+
+  if(root==='dashboard'){
+    document.querySelectorAll('[data-action]').forEach(btn=>{
+      const action = btn.dataset.action;
+      if(action==='logout') return; // handled globally
+      btn.onclick = (e)=>{
+        e.preventDefault();
+        const u = currentUser(); const p = userProfile(u.id);
+        if(action==='create'){ wizardState=null; go('#/wizard?step=1'); }
+        if(action==='edit'){ wizardState=null; go('#/wizard?step=1'); }
+        if(action==='preview'){ if(p) go('#/profile/'+p.id); }
+        if(action==='verify'){ if(p) go('#/verify'); }
+        if(action==='delete'){
+          if(!p) return;
+          if(confirm('Delete your profile permanently? This cannot be undone.')){
+            DB.profiles = DB.profiles.filter(x=>x.id!==p.id);
+            saveProfiles().then(()=>{ toast('Profile deleted.'); render(); });
+          }
+        }
+      };
+    });
+  }
+
+  if(root==='wizard'){
+    const step = Math.min(Math.max(parseInt(query.step||'1',10),1), WIZ_STEPS.length);
+    bindWizardEvents(step);
+  }
+
+  if(root==='profile'){
+    const p = DB.profiles.find(x=>x.id===parts[1]);
+    if(p){
+      bumpViews(p);
+      const likeBtn = document.getElementById('likeBtn');
+      if(likeBtn){
+        (async ()=>{
+          const liked = await sGet('pp_liked_'+p.id, false);
+          if(liked) likeBtn.classList.add('liked');
+        })();
+        likeBtn.onclick = async ()=>{
+          const liked = await sGet('pp_liked_'+p.id, false);
+          if(liked){ toast('You already liked this profile.'); return; }
+          p.likes = (p.likes||0)+1;
+          await saveProfiles();
+          await sSet('pp_liked_'+p.id, true, false);
+          document.getElementById('likeCount').textContent = fmtNum(p.likes);
+          likeBtn.classList.add('liked');
+          toast('Liked!');
+        };
+      }
+    }
+  }
+
+  if(root==='verify'){
+    const stage = query.stage || 'plans';
+    if(stage==='plans'){
+      document.querySelectorAll('[data-pay]').forEach(btn=>{
+        btn.onclick = ()=>{
+          const tier = btn.dataset.pay;
+          /* PAY_INTEGRATION_POINT: replace this simulated flow with a real
+             Razorpay/Stripe checkout call, then route to ?stage=success on success. */
+          go(`#/verify?stage=processing&plan=${tier}`);
+          setTimeout(()=>{ go(`#/verify?stage=success&plan=${tier}`); }, 1800);
+        };
+      });
+    }
+    if(stage==='success'){
+      const btn = document.getElementById('publishBtn');
+      btn.onclick = async ()=>{
+        const u = currentUser(); const p = userProfile(u.id);
+        p.verification = query.plan || 'normal';
+        p.published = true;
+        p.publishDate = new Date().toISOString();
+        await saveProfiles();
+        toast('Profile published! It is now live on PhoenixPedia.');
+        go('#/profile/'+p.id);
+      };
+    }
+  }
+
+  if(root==='about'){
+    const toggle = document.getElementById('toggleAboutEdit');
+    if(toggle){
+      toggle.onclick = ()=>{
+        const view = document.getElementById('aboutView');
+        const edit = document.getElementById('aboutEdit');
+        if(edit.style.display==='none'){
+          edit.innerHTML = aboutEditForm();
+          bindAboutEditForm();
+          view.style.display='none'; edit.style.display='block';
+          toggle.textContent = 'Close editor';
+        } else {
+          edit.style.display='none'; view.style.display='block';
+          toggle.innerHTML = `${ICON.edit} Edit about page`;
+        }
+      };
+    }
+  }
+
+  if(root==='contact'){
+    const form = document.getElementById('contactForm');
+    form.onsubmit = e=>{
+      e.preventDefault();
+      /* This is a front-end placeholder: wire to an email service or backend endpoint. */
+      toast('Message sent — the founder will reply soon.');
+      form.reset();
+    };
+  }
+}
+
+/* ---------------- About edit form (founder-only) ---------------- */
+function aboutEditForm(){
+  const f = DB.founder;
+  return `
+  <div class="editable-note">${ICON.shield} Founder mode — changes save to the live About page.</div>
+  <div class="field"><label>Name</label><input class="input" id="ea_name" value="${esc(f.name)}"></div>
+  <div class="field"><label>Tagline</label><input class="input" id="ea_tagline" value="${esc(f.tagline)}"></div>
+  <div class="field"><label>Birthdate</label><input class="input" type="date" id="ea_birthdate" value="${esc(f.birthdate)}"></div>
+  <div class="field"><label>Biography</label><textarea class="textarea" id="ea_bio" rows="5">${esc(f.bio)}</textarea></div>
+  <div class="field"><label>Contact email</label><input class="input" id="ea_email" value="${esc(f.contact.email)}"></div>
+  <div class="field"><label>Contact phone</label><input class="input" id="ea_phone" value="${esc(f.contact.phone)}"></div>
+  <div class="field"><label>Office address</label><input class="input" id="ea_address" value="${esc(f.contact.address)}"></div>
+  <div style="display:flex;gap:10px;margin-top:20px;">
+    <button class="btn btn-primary" id="ea_save">${ICON.check} Save changes</button>
+  </div>
+  <p style="font-size:12px;margin-top:14px;">Education, career, awards, achievements, records and timeline can be extended directly in the seed data for deeper customization.</p>`;
+}
+function bindAboutEditForm(){
+  document.getElementById('ea_save').onclick = async ()=>{
+    const f = DB.founder;
+    f.name = document.getElementById('ea_name').value.trim();
+    f.tagline = document.getElementById('ea_tagline').value.trim();
+    f.birthdate = document.getElementById('ea_birthdate').value;
+    f.bio = document.getElementById('ea_bio').value.trim();
+    f.contact.email = document.getElementById('ea_email').value.trim();
+    f.contact.phone = document.getElementById('ea_phone').value.trim();
+    f.contact.address = document.getElementById('ea_address').value.trim();
+    await saveFounder();
+    toast('About page updated.');
+    render();
+  };
+}
+
+boot();
+</script>
+</body>
+</html>
